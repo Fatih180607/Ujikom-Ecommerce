@@ -1,0 +1,31 @@
+body {
+    padding:0;
+    margin:0;
+}
+h1{
+    margin: 22px;
+    font-size: 25px;
+    width: 55%;
+    text-align: center;
+}
+img{
+    height: 200px;
+    order:1;
+    padding-right: 5rem;
+
+}
+p{
+    margin: 10px;
+    width: 55%;
+    padding: 10px;
+    text-align:left;
+}
+.bagian1 {
+    display: flex;
+    align-items: center;
+}
+
+article{
+    border: 2px solid black; 
+}
+

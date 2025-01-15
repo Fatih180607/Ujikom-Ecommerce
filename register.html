@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Register</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="loginbg">
+      <h2>Register</h2>
+      <form action="register.php" method="POST">
+        <label for="username"><b>Username</b></label>
+        <br />
+        <input
+            type="text"
+            id="username"
+            placeholder="Enter Username"
+            name="username"
+            required
+        />
+        <br /><br />
+        <label for="email"><b>Email</b></label>
+        <br />
+        <input
+            type="email"
+            id="email"
+            placeholder="Enter Email"
+            name="email"
+            required
+        />
+        <br /><br />
+        <label for="password"><b>Password</b></label>
+        <br />
+        <input
+            type="password"
+            id="password"
+            placeholder="Enter Password"
+            name="password"
+            required
+        />
+        <br /><br />
+        <input type="submit" value="Create Account"/>
+    </form>    
+      <p>Sudah punya akun? <a href="index.html">Login di sini</a></p>
+    </div>
+  </body>
+</html>

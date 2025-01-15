@@ -1,27 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DAFFA AL FATIH XI PPLG</title>
-    <link rel="stylesheet" href="apa aja.css">
-</head>
-<body>
-    <div class="loginbg"> 
-    <h2>Login</h2>
-    <form>
-    <label for="Username"><b>Email Or Username</b></label>
-    <br>
-    <input type="text" placeholder="Enter Email Or Username" name="Email Or Username">
-    <br>
-    <br>
-    <label for="Password"><b>Password</b></label>
-    <br>
-    <input type="password" placeholder="Enter Password" name="Password">
-    <br>
-    <br>
-    <input type="submit">
-    </form>
+  <head>  
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="loginbg">
+      <img class="Adainlogo" src="gambar/AdainLogo.png" alt="Adain Logo">
+      <h2>Login</h2>
+      <form action="login.php" method="POST">
+        <label for="username"><b>Username</b></label>
+        <br />
+        <input
+          type="text"
+          id="username"
+          placeholder="Username"
+          name="username"
+          required
+        />
+        <br/><br/>
+        <label for="password"><b>Password</b></label>
+        <br />
+        <input
+          type="password"
+          id="password"
+          placeholder="Enter Password"
+          name="password"
+          required
+        />
+        <br /><br />
+        <input class="ButtonLogin" type="submit" value="Login" />
+      </form>
+      <p>Belum punya akun? <a href="register.html">Daftar di sini</a></p>
     </div>
-</body>
+  </div>
+  </body>
 </html>
