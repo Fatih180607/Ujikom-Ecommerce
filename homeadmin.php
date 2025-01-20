@@ -21,6 +21,7 @@ try {
     <link rel="stylesheet" href="homeadmin.css"/>
   </head>
   <body>
+    <h1>Daftar Produk</h1>   
     <div class="Navbar">
       <img class="LogoNavbar" src="gambar/removebg.png" alt="Logo" />
       <ul>
@@ -28,25 +29,29 @@ try {
         <li><a href="addproductadmin.php">Product</a></li>
       </ul>
       <a class="LogoutButton" href="index.php">Log Out</a>
-    </div>
+</div>
+    <table class="table">
+      <thead>
+        <tr>
+          <th scope="col">Gambar Produk</th>
+          <th scope="col">Nama</th>
+          <th scope="col">Deskripsi</th>
+          <th scope="col">Harga</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php
+      foreach ($products as $product) {
+              echo '<tr>';
+              echo '<td><img src="' . htmlspecialchars($product['Gambar']) . '" alt="' . htmlspecialchars($product['Nama_Produk']) . '" class="product-image"></td>';
+              echo '<td>' . htmlspecialchars($product['Nama_Produk']) . '</td>';
+              echo '<td>' . htmlspecialchars($product['Deskripsi']) . '</td>';
+              echo '<td> Price: Rp ' . number_format($product['Harga'], 0, ',', '.') . '</td>';
+              echo '</tr>';
+          }?>
+        
+      </tbody>
+    </table>
 
-    <h1>Daftar Produk</h1>
-
-    <div class="product-container">
-      <?php
-      if ($products) {
-          foreach ($products as $product) {
-              echo '<div class="product-card">';
-              echo '<img src="' . htmlspecialchars($product['Gambar']) . '" alt="' . htmlspecialchars($product['Nama_Produk']) . '" class="product-image">';
-              echo '<h2>' . htmlspecialchars($product['Nama_Produk']) . '</h2>';
-              echo '<p class="Deskripsi">Description: ' . htmlspecialchars($product['Deskripsi']) . '</p>';
-              echo '<p class="Harga">Price: Rp ' . number_format($product['Harga'], 0, ',', '.') . '</p>';
-              echo '</div>';
-          }
-      } else {
-          echo '<p>Tidak ada produk yang tersedia.</p>';
-      }
-      ?>
-    </div>   
   </body>
 </html>

@@ -8,7 +8,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $password = $_POST['password'];
  
-    // Query untuk mencari username di database
+    // Query untuk mencari username di database`
     $sql = "SELECT * FROM Data_User WHERE Username = :username";
     $stmt = $myPDO->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);

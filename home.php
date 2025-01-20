@@ -17,19 +17,21 @@ try {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="icon" type="gambar" href="gambar/removebg.png" />
+    <link rel="icon" type="image/png" href="gambar/removebg.png" />
     <link rel="stylesheet" href="home.css"/>
   </head>
   <body>
     <div class="Navbar">
-      <img class="LogoNavbar" src="gambar/removebg.png" />
+      <img class="LogoNavbar" src="gambar/removebg.png" alt="Logo" />
       <ul>
         <li class="Home">Home</li>
         <li><a href="historyorder.php">History Order</a></li>
       </ul>
       <a class="LogoutButton" href="index.php">Log Out</a>
     </div>
-    <h1>Produk</h1>
+
+    <h1>Daftar Produk</h1>
+
     <div class="product-container">
       <?php
       if ($products) {
@@ -44,6 +46,8 @@ try {
       } else {
           echo '<p>Tidak ada produk yang tersedia.</p>';
       }
-      ?>   
+      ?>
+    </div>   
   </body>
 </html>
+

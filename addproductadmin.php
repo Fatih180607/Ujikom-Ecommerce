@@ -43,7 +43,7 @@ try {
             // Pindahkan file ke folder tujuan
             if (move_uploaded_file($fileTmpPath, $destPath)) {
                 // Buat URL untuk file
-                $gambarUrl = 'http://' . $_SERVER['HTTP_HOST'] . '/' . $destPath;
+                $gambarUrl = 'http://' . $_SERVER['HTTP_HOST'] . '/formtesting/' . $destPath;
 
                 // Simpan data ke database
                 $sql = "INSERT INTO Produk (Nama_Produk, Deskripsi, Harga, Gambar) 
