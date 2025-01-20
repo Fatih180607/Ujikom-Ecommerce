@@ -1,12 +1,14 @@
 body {
   min-height: 100vh;
   align-items: center;
+  background-color: rgba(151, 151, 151, 0.5);
 }
 
 .loginbg {
   font-family: 'Times New Roman', Times, serif;
-  border-radius: 25px;
-  padding: 20px;
+  border-radius: 25px;  
+  padding: 20px; 
+  background-color: white;
   max-width: max-content;
   margin: auto;
   display: flex;
@@ -17,15 +19,42 @@ body {
 
 .Adainlogo{
   max-width: 500px;
+  border: 2px solid gray;
 }
 
 .ButtonLogin{
-  background-color: red;
+  background-color: rgb(57, 235, 57);
   width: 100%;
-  padding: 1rem;
+  margin-top: 1%;
+  padding: rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.ButtonRegist{
+  margin-top: 2%;
+  width: 100%;
+}
+
+.DropdownRole{
+  width: 100%;
+  height: 12%;
+  
+}
+
+.Loginh2{
+  margin-top: 10%;
+  margin-bottom: 1%;
+  text-align: center;
+  font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 input{
   width: 93%;
   padding: 1rem;  
+}
+
+.error-messagelogin{
+  font-family:Arial, Helvetica, sans-serif;
+  text-align: center;
+  color: red;
 }
