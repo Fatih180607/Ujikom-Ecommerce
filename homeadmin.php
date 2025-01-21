@@ -21,6 +21,7 @@ try {
     <link rel="stylesheet" href="homeadmin.css"/>
   </head>
   <body>
+  <div class="Daftar_Produk">
     <h1>Daftar Produk</h1>   
     <div class="Navbar">
       <img class="LogoNavbar" src="gambar/removebg.png" alt="Logo" />
@@ -30,7 +31,7 @@ try {
       </ul>
       <a class="LogoutButton" href="index.php">Log Out</a>
 </div>
-    <table class="table">
+    <table class="tabel_produk">
       <thead>
         <tr>
           <th scope="col">Gambar Produk</th>
@@ -39,19 +40,18 @@ try {
           <th scope="col">Harga</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="row_produk">
         <?php
       foreach ($products as $product) {
               echo '<tr>';
               echo '<td><img src="' . htmlspecialchars($product['Gambar']) . '" alt="' . htmlspecialchars($product['Nama_Produk']) . '" class="product-image"></td>';
-              echo '<td>' . htmlspecialchars($product['Nama_Produk']) . '</td>';
+              echo '<td class="Nama_Produk_Table">' . htmlspecialchars($product['Nama_Produk']) . '</td>';
               echo '<td>' . htmlspecialchars($product['Deskripsi']) . '</td>';
               echo '<td> Price: Rp ' . number_format($product['Harga'], 0, ',', '.') . '</td>';
               echo '</tr>';
           }?>
-        
       </tbody>
     </table>
-
+      </div>
   </body>
 </html>

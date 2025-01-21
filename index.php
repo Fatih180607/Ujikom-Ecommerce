@@ -1,6 +1,20 @@
 <?php
+session_start();
 $myPDO = new PDO('sqlite:db/db.sqlite3');
 $errorMessage = "";  // Variabel untuk menampung pesan error
+
+if (isset($_SESSION['username'])) {
+    if ($_SESSION["role"] === "Admin") {
+        header("Location: homeadmin.php");
+        exit;
+    } else if ($_SESSION["r ole"] === "User") {
+        header("Location: home.php");
+        exit;
+    } else {
+        echo "Role tidak valid.";
+    }
+    exit();
+}
 
 // Memeriksa apakah form sudah disubmit
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -17,8 +31,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // Mengambil hasil query
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($row && password_verify($password, $row["Password"])) {
-        // Cek Role user
+    if ($row && password_verify($password, $row["Password"])) 
+    {
+        $_SESSION['username'] = $row['Username'];
+        $_SESSION['role'] = $row['Role'];
+
         if ($row["Role"] === "Admin") {
             header("Location: homeadmin.php");
             exit;

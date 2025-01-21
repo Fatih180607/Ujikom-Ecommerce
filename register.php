@@ -7,9 +7,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $username = $_POST['username'];
     $email = $_POST['email'];
     $password = $_POST['password'];
-    $role = $_POST['role'];
 
     $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+
+    $role='User';
 
     $sql_insert = "INSERT INTO Data_User (Username, Email, Password, role) 
                        VALUES (:username, :email, :hashed_password, :role)";
@@ -73,13 +74,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
           name="password"
           required
         />
-        <br/><br/>
-        <label for="role"><b>Role</b></label>
-        <select class="DropdownRole" id="role" name="role" required>
-          <option value="" disabled selected>Select Role</option>
-          <option value="Admin">Admin</option>
-          <option value="User">User</option>
-        </select>
         <br /><br />
         <input class="ButtonRegist" type="submit" value="Create Account" />
       </form>
