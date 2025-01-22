@@ -7,7 +7,7 @@ if (isset($_SESSION['username'])) {
     if ($_SESSION["role"] === "Admin") {
         header("Location: homeadmin.php");
         exit;
-    } else if ($_SESSION["r ole"] === "User") {
+    } else if ($_SESSION["role"] === "User") {
         header("Location: home.php");
         exit;
     } else {

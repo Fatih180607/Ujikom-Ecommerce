@@ -1,3 +1,11 @@
+body {
+  background-color: antiquewhite;
+  margin: 0;
+  padding: 0;
+  margin-left: 220px;
+  font-family: Arial, sans-serif;
+}
+
 .Navbar {
   background-color: burlywood;
   position: fixed;
@@ -46,13 +54,6 @@ li a:hover {
   padding: 5px 10px;
 }
 
-body {
-  background-color: antiquewhite;
-  margin: 0;
-  padding: 0;
-  margin-left: 220px;
-  font-family: Arial, sans-serif;
-}
 
 .halohome {
   text-align: left;
@@ -64,7 +65,6 @@ body {
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
   gap: 20px;
   padding: 20px;
-  max-width: 1200px;
   margin-left: 30px;
   transition: margin-left 0.3s ease;
 }
@@ -91,8 +91,7 @@ body {
 .product-image {
   width: 100%;
   height: 200px;
-  object-fit: cover;
-  border-bottom: 1px solid #ddd;
+  object-fit: contain;
 }
 
 .product-card h2 {
@@ -118,3 +117,9 @@ h1 {
   font-size: 24px;
   color: #333;
 }
+
+.product-card-link{
+  text-decoration: none;
+  color: inherit;
+}
+

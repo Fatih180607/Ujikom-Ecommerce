@@ -1,3 +1,11 @@
+body {
+    background-color: antiquewhite;
+    margin: 0;
+    padding: 0;
+    margin-left: 220px;
+    font-family: Arial, sans-serif;
+}
+
 .Navbar {
     background-color: burlywood;
     position: fixed; 
@@ -49,13 +57,6 @@ li a:hover {
     padding: 5px 10px;
 }
 
-body {
-    background-color: antiquewhite;
-    margin: 0;
-    padding: 0;
-    margin-left: 220px;
-    font-family: Arial, sans-serif;
-}
 
 .AddProductContainer{
     margin-left: 10px;
@@ -70,5 +71,5 @@ form{
     margin-left: 10px;
     border: 2px solid black;
     padding: 20px;
-    width: 50%;
+    width: 95%;
 }

@@ -1,3 +1,11 @@
+body {
+  background-color: antiquewhite;
+  margin: 0;
+  padding: 0;
+  margin-left: 220px;
+  font-family: Arial, sans-serif;
+}
+
 .Navbar {
   background-color: burlywood;
   position: fixed;
@@ -47,13 +55,6 @@ li a:hover {
   padding: 5px 10px;
 }
 
-body {
-  background-color: antiquewhite;
-  margin: 0;
-  padding: 0;
-  margin-left: 220px;
-  font-family: Arial, sans-serif;
-}
 
 .halohome {
   text-align: left;
@@ -92,8 +93,9 @@ body {
 .product-image {
   width: 100%;
   height: 100px;
-  object-fit: cover;
+  object-fit: contain;
   border-bottom: 1px solid #ddd;
+  object-fit: containx  ;
 }
 
 .product-card h2 {
@@ -139,6 +141,10 @@ h1 {
 }
 
 .Nama_Produk_Table{
-  
   font-weight: bold;
+}
+
+.ButtonDelete{
+color: red;
+width: 100%;
 }

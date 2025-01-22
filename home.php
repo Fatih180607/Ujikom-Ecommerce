@@ -11,6 +11,7 @@ try {
 }
 ?>
 
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -18,6 +19,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
     <link rel="icon" type="image/png" href="gambar/removebg.png" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="home.css"/>
   </head>
   <body>
@@ -27,7 +29,7 @@ try {
         <li class="Home">Home</li>
         <li><a href="historyorder.php">History Order</a></li>
       </ul>
-      <a class="LogoutButton" href="index.php">Log Out</a>
+      <a class="LogoutButton" href="logout.php">Log Out</a>
     </div>
 
     <h1>Daftar Produk</h1>
@@ -36,11 +38,12 @@ try {
       <?php
       if ($products) {
           foreach ($products as $product) {
+              echo '<a href="detailproduct.php?id=' . urldecode($product['Nama_Produk']) . '" class="product-card-link">';
               echo '<div class="product-card">';
               echo '<img src="' . htmlspecialchars($product['Gambar']) . '" alt="' . htmlspecialchars($product['Nama_Produk']) . '" class="product-image">';
               echo '<h2>' . htmlspecialchars($product['Nama_Produk']) . '</h2>';
-              echo '<p class="Deskripsi">Description: ' . htmlspecialchars($product['Deskripsi']) . '</p>';
               echo '<p class="Harga">Price: Rp ' . number_format($product['Harga'], 0, ',', '.') . '</p>';
+              echo '<button class="add-to-cart"><i class="fa fa-shopping-cart"></i>   Add to Cart</button>';
               echo '</div>';
           }
       } else {

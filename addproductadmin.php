@@ -23,7 +23,7 @@ try {
             $fileExtension = strtolower(pathinfo($fileName, PATHINFO_EXTENSION));
 
             // Validasi tipe file
-            $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif'];
+            $allowedExtensions = ['jpg', 'jpeg', 'png'];
             if (!in_array($fileExtension, $allowedExtensions)) {
                 throw new Exception("Tipe file tidak valid. Hanya gambar yang diperbolehkan.");
             }
@@ -51,7 +51,7 @@ try {
                 $stmt = $db->prepare($sql);
                 $stmt->bindParam(':Nama_Produk', $Nama_Produk);
                 $stmt->bindParam(':Deskripsi', $Deskripsi);
-                $stmt->bindParam(':Harga', $Harga);
+                $stmt->bindParam(':Harga', var: $Harga);
                 $stmt->bindParam(':Gambar', $gambarUrl);
                 $stmt->execute();
 
@@ -64,7 +64,6 @@ try {
         }
     }
 } catch (Exception $e) {
-    // Tampilkan pesan kesalahan
     echo "Error: " . $e->getMessage();
 }
 ?>
@@ -87,18 +86,18 @@ try {
         <li><a href="homeadmin.php">Home</a></li>
         <li class="AddProduct">Product</li>
       </ul>
-      <a class="LogoutButton" href="index.php">Log Out</a>
+      <a class="LogoutButton" href="logout.php">Log Out</a>
     </div>
     <h1 class="h1AddProduct">Add your product</h1>
     <form action="addproductadmin.php" method="POST" enctype="multipart/form-data">
     <label for="Nama_Produk">Nama Produk:</label><br>
-    <input type="text" id="Nama_Produk" name="Nama_Produk" required><br><br>
+    <input type="text" id="Nama_Produk" placeholder="Nama Produk" name="Nama_Produk" required><br><br>
 
     <label for="Deskripsi">Deskripsi:</label><br>
-    <textarea id="Deskripsi" name="Deskripsi" required></textarea><br><br>
+    <textarea id="Deskripsi" name="Deskripsi" placeholder="Deskripsi Produk" style="resize: none;" required cols="80" rows="10"></textarea><br><br>
 
     <label for="Harga">Harga:</label><br>
-    <input type="text" id="Harga" name="Harga" required><br><br>
+    <input type="text" id="Harga" placeholder="Harga" name="Harga" required><br><br>
 
     <label for="Gambar">Upload Gambar:</label><br>
     <input type="file" id="Gambar" name="Gambar" accept="image/*" required><br><br>

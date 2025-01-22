@@ -1,9 +1,20 @@
 <?php
+session_start();
+
+if (isset($_SESSION['role'])) {
+  if($_SESSION["role"] <> "Admin"){
+  header("Location: home.php");
+  exit;  
+  }
+} else{
+  header("Location:index.php");
+}
+
 try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    $query = $db->query("SELECT Nama_Produk, Deskripsi, Harga, Gambar FROM Produk");
+    $query = $db->query("SELECT id, Nama_Produk, Deskripsi, Harga, Gambar FROM Produk");
     $products = $query->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -29,7 +40,7 @@ try {
         <li class="Home">Home</li>
         <li><a href="addproductadmin.php">Product</a></li>
       </ul>
-      <a class="LogoutButton" href="index.php">Log Out</a>
+      <a class="LogoutButton" href="logout.php">Log Out</a>
 </div>
     <table class="tabel_produk">
       <thead>
@@ -38,6 +49,7 @@ try {
           <th scope="col">Nama</th>
           <th scope="col">Deskripsi</th>
           <th scope="col">Harga</th>
+          <th scope="col">Action</th>
         </tr>
       </thead>
       <tbody class="row_produk">
@@ -48,8 +60,9 @@ try {
               echo '<td class="Nama_Produk_Table">' . htmlspecialchars($product['Nama_Produk']) . '</td>';
               echo '<td>' . htmlspecialchars($product['Deskripsi']) . '</td>';
               echo '<td> Price: Rp ' . number_format($product['Harga'], 0, ',', '.') . '</td>';
+              echo '<td> <button class="ButtonDelete"type="submit">Delete</button> <br> <button class="ButtonDelete"type"submit">Edit</button>';
               echo '</tr>';
-          }?>
+            }?>
       </tbody>
     </table>
       </div>
