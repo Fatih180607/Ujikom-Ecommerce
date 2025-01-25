@@ -37,7 +37,7 @@ if (isset($_GET['ID'])) {
 <body>
     <div class="EditProduct">
         <h1>Edit Produk</h1>
-        <form action="updateproduk.php" method="POST" enctype="multipart/form-data" id="updateForm">
+        <form action="updateproduk.php" method="POST" enctype="multipart/form-data" id="updateForm" autocomplete="off">
     <input type="hidden" name="ID" value="<?php echo htmlspecialchars($product['ID']); ?>">
     <input type="hidden" name="oldGambar" value="<?php echo htmlspecialchars($product['Gambar']); ?>">
     

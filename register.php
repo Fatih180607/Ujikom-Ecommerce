@@ -43,7 +43,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   <body>
     <div class="loginbg">
       <h2 class="Loginh2">Register</h2>
-      <form action="register.php" method="POST">
+      <form action="register.php" method="POST" autocomplete="off">
         <label for="username"><b>Username</b></label>
         <br />
         <input

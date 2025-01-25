@@ -64,7 +64,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <body>
     <div class="loginbg">
         <h2 class="Loginh2">Login</h2>
-        <form action="index.php" method="POST">
+        <form action="index.php" method="POST" autocomplete="off">
             <label for="username"><b>Username</b></label>
             <br />
             <input type="text" id="username" placeholder="Username" name="username" required />
