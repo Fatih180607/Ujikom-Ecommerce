@@ -2,59 +2,11 @@ body {
     background-color: antiquewhite;
     margin: 0;
     padding: 0;
-    margin-left: 220px;
     font-family: Arial, sans-serif;
-}
-
-.Navbar {
-    background-color: burlywood;
-    position: fixed; 
-    top: 0;
-    left: 0;
-    height: 100%; 
-    width: 220px; 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 0;
-}
-
-.LogoNavbar {
-    width: 100%; 
-    margin-bottom: 0px;
-}
-
-
-ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    display: contents;
-    flex-direction: column;
-    gap: 1rem;
-    align-items: center; 
 }
 
 .AddProduct{
     border-bottom: 3px solid gray;
-}
-
-li {
-    font-size: 18px;
-    margin: 10%;
-}
-
-
-li a {
-    color: black;
-    text-decoration: none;
-}
-
-
-li a:hover {
-    color: white;
-    background-color: #555;
-    padding: 5px 10px;
 }
 
 
@@ -68,8 +20,12 @@ li a:hover {
 }
 
 form{
-    margin-left: 10px;
     border: 2px solid black;
     padding: 20px;
     width: 95%;
+}
+
+.cancelbutton{
+    text-decoration: none;
+    color: inherit;
 }

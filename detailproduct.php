@@ -4,7 +4,7 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if (isset($_GET['id'])) {
-        $namaProduk = urldecode($_GET['id']); // Pastikan URL di-decode
+        $namaProduk = urldecode($_GET['id']); 
         $stmt = $db->prepare("SELECT Nama_Produk, Deskripsi, Harga, Gambar FROM Produk WHERE Nama_Produk = :nama");
         $stmt->bindParam(':nama', $namaProduk, PDO::PARAM_STR);
         $stmt->execute();
@@ -12,7 +12,7 @@ try {
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$product) {
-            header("Location: home.php"); 
+            echo($product); 
             exit;
         }
     } else {
@@ -31,6 +31,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Produk</title>
+    <link rel="icon" type="gambar" href="gambar/removebg.png"/>
     <link rel="stylesheet" href="detail.css">
 </head>
 <body>

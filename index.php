@@ -58,11 +58,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
     <link rel="icon" type="gambar" href="gambar/removebg.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="loginbg">
-        <img class="Adainlogo" src="gambar/AdainLogo.png" alt="Adain Logo">
         <h2 class="Loginh2">Login</h2>
         <form action="index.php" method="POST">
             <label for="username"><b>Username</b></label>
@@ -71,7 +71,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             <br /><br />
             <label for="password"><b>Password</b></label>
             <br />
+            <div class="password-wrapper">
             <input type="password" id="password" placeholder="Enter Password" name="password" required />
+            <i class="fas fa-eye" id="togglePassword"></i>
+        </div>
             <br /><br />
             <input class="ButtonLogin" type="submit" value="Login"/>
         </form>
@@ -81,6 +84,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ?>
         <p class="Loginh2">Don't have an account yet? <a href="register.php">Register here</a></p>
+        </div>
     </div>
+    <script>
+         const togglePassword = document.querySelector("#togglePassword");
+    const passwordField = document.querySelector("#password");
+    togglePassword.addEventListener("click", function () {
+        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
+        passwordField.setAttribute("type", type);
+        this.classList.toggle("fa-eye-slash");
+    });
+    </script>
 </body>
 </html>

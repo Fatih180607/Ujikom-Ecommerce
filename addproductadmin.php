@@ -3,11 +3,11 @@ try {
     // Koneksi ke database SQLite
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
+    
     // Periksa apakah form telah disubmit
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         // Ambil data dari form
-        $Nama_Produk = $_POST['Nama_Produk'];
+        $Nama_Produk = trim($_POST['Nama_Produk']);
         $Deskripsi = $_POST['Deskripsi'];
         $Harga = $_POST['Harga'];
 
@@ -55,7 +55,7 @@ try {
                 $stmt->bindParam(':Gambar', $gambarUrl);
                 $stmt->execute();
 
-                echo "Produk berhasil ditambahkan!";
+                header("Location:detailproduct.php");
             } else {
                 throw new Exception("Terjadi kesalahan saat mengunggah file.");
             }
@@ -80,16 +80,8 @@ try {
     <link rel="stylesheet" href="addproductadmin.css" />
   </head>
   <body>
-    <div class="Navbar">
-      <img class="LogoNavbar" src="gambar/removebg.png" />
-      <ul>
-        <li><a href="homeadmin.php">Home</a></li>
-        <li class="AddProduct">Product</li>
-      </ul>
-      <a class="LogoutButton" href="logout.php">Log Out</a>
-    </div>
     <h1 class="h1AddProduct">Add your product</h1>
-    <form action="addproductadmin.php" method="POST" enctype="multipart/form-data">
+    <form action="addproductadmin.php" method="POST" autocomplete="off" enctype="multipart/form-data">
     <label for="Nama_Produk">Nama Produk:</label><br>
     <input type="text" id="Nama_Produk" placeholder="Nama Produk" name="Nama_Produk" required><br><br>
 
@@ -101,9 +93,10 @@ try {
 
     <label for="Gambar">Upload Gambar:</label><br>
     <input type="file" id="Gambar" name="Gambar" accept="image/*" required><br><br>
-
+    <button type="reset">Reset</button>
     <button type="submit">Tambah Produk</button>
 </form>
+    <button class="cancelbutton" type="submit"><a href="homeadmin.php">Cancel</a></button>
 
   </body>
 </html>

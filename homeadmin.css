@@ -94,7 +94,6 @@ li a:hover {
   width: 100%;
   height: 100px;
   object-fit: contain;
-  border-bottom: 1px solid #ddd;
   object-fit: containx  ;
 }
 
@@ -129,7 +128,8 @@ h1 {
 
 .row_produk{
   text-align: center;
-  border-bottom: 2px solid red;
+  background-color: burlywood;
+  padding: 10%;
 }
 
 .Daftar_Produk{
@@ -147,4 +147,9 @@ h1 {
 .ButtonDelete{
 color: red;
 width: 100%;
+}
+
+.AddProductButton{
+  color: inherit;
+  text-decoration: none;
 }

@@ -37,11 +37,12 @@ try {
     <div class="product-container">
       <?php
       if ($products) {
-          foreach ($products as $product) {
+          foreach ($products as $product)   {
               echo '<a href="detailproduct.php?id=' . urldecode($product['Nama_Produk']) . '" class="product-card-link">';
               echo '<div class="product-card">';
               echo '<img src="' . htmlspecialchars($product['Gambar']) . '" alt="' . htmlspecialchars($product['Nama_Produk']) . '" class="product-image">';
               echo '<h2>' . htmlspecialchars($product['Nama_Produk']) . '</h2>';
+              echo '<td>'. htmlspecialchars($product['Deskripsi']).'</td>';
               echo '<p class="Harga">Price: Rp ' . number_format($product['Harga'], 0, ',', '.') . '</p>';
               echo '<button class="add-to-cart"><i class="fa fa-shopping-cart"></i>   Add to Cart</button>';
               echo '</div>';

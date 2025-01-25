@@ -42,7 +42,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
   </head>
   <body>
     <div class="loginbg">
-      <img class="Adainlogo" src="gambar/AdainLogo.png" alt="Adain Logo" />
       <h2 class="Loginh2">Register</h2>
       <form action="register.php" method="POST">
         <label for="username"><b>Username</b></label>
