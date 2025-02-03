@@ -22,10 +22,16 @@ body {
 form{
     border: 2px solid black;
     padding: 20px;
-    width: 95%;
+    width: 50%;
+    margin: 0 auto;
 }
 
 .cancelbutton{
+    text-decoration: none;
+    color: inherit;
+}
+
+a{
     text-decoration: none;
     color: inherit;
 }

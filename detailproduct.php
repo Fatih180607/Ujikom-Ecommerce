@@ -32,7 +32,7 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Produk</title>
     <link rel="icon" type="gambar" href="gambar/removebg.png"/>
-    <link rel="stylesheet" href="detail.css">
+    <link rel="stylesheet" href="detailproduct.css">
 </head>
 <body>
     <div class="product-detail">

@@ -44,11 +44,11 @@ try {
         <li><a href="orderadmin.php">Order</a></li>
       </ul>
       <a class="LogoutButton" href="logout.php">Log Out</a>
-</div>
+    </div>
     <table class="tabel_produk">
       <thead>
         <tr>
-          <th scope="col">Gambar Produk</th>
+          <th scope="col">ID</th>
           <th scope="col">Nama</th>
           <th scope="col">Deskripsi</th>
           <th scope="col">Harga</th>
@@ -59,10 +59,10 @@ try {
     <?php
     foreach ($products as $product) {
         echo '<tr>';
-        echo '<td><img src="' . htmlspecialchars($product['Gambar']) . '" alt="' . htmlspecialchars($product['Nama_Produk']) . '" class="product-image"></td>';
+        echo '<td class="Id_Produk">' . htmlspecialchars($product['ID']) . '</td>';
         echo '<td class="Nama_Produk_Table">' . htmlspecialchars($product['Nama_Produk']) . '</td>';
-        echo '<td>' . htmlspecialchars($product['Deskripsi']) . '</td>';
-        echo '<td> Price: Rp ' . number_format($product['Harga'], 0, ',', '.') . '</td>';
+        echo '<td class="Deskripsi_Produk">' . htmlspecialchars($product['Deskripsi']) . '</td>';
+        echo '<td class="Harga_Produk"> Rp ' . number_format($product['Harga'], 0, ',', '.') . '</td>';
         echo '<td>';
         echo '<a href="deleteproduk.php?ID=' . htmlspecialchars($product['ID']) . '" onclick="return confirm(\'Apakah Anda yakin ingin menghapus produk ini?\')">';
         echo '<input class="ButtonLogin" type="button" value="Delete">';
@@ -74,7 +74,7 @@ try {
         echo '</tr>';
     }
     ?>
-</tbody>
+      </tbody>
     </table>
       </div>
   </body>

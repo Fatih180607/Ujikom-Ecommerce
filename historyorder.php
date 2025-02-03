@@ -1,3 +1,18 @@
+<?php
+session_start();
+
+if (isset($_SESSION['role'])) {
+  if($_SESSION["role"] <> "Admin"){
+  header("Location: home.php");
+  exit;  
+  }
+} else{
+  header("Location:index.php");
+}
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
