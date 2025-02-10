@@ -16,19 +16,19 @@ if (isset($_SESSION['username'])) {
     exit();
 }
 
-// Memeriksa apakah form sudah disubmit
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    // Mendapatkan data dari form
+    
     $username = $_POST['username'];
     $password = $_POST['password'];
  
-    // Query untuk mencari username di database`
+    
     $sql = "SELECT * FROM Data_User WHERE Username = :username";
     $stmt = $myPDO->prepare($sql);
     $stmt->bindParam(':username', $username, PDO::PARAM_STR);
     $stmt->execute();
 
-    // Mengambil hasil query
+    
     $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
     if ($row && password_verify($password, $row["Password"])) 
@@ -63,7 +63,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="loginbg">
-        <h2 class="Loginh2">Login</h2>
+        <img class="jerseyfylogo" src="gambar/logoitem.png">
         <form action="index.php" method="POST" autocomplete="off">
             <label for="username"><b>Username</b></label>
             <br />
@@ -85,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ?>
         <p class="Loginh2">Don't have an account yet? <a href="register.php">Register here</a></p>
         </div>
-    </div>
+    </>
     <script>
          const togglePassword = document.querySelector("#togglePassword");
     const passwordField = document.querySelector("#password");

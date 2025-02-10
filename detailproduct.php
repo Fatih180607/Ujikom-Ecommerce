@@ -35,12 +35,14 @@ try {
     <link rel="stylesheet" href="detailproduct.css">
 </head>
 <body>
-    <div class="product-detail">
-        <img src="<?= htmlspecialchars($product['Gambar']) ?>" alt="<?= htmlspecialchars($product['Nama_Produk']) ?>" class="product-image">
-        <h1><?= htmlspecialchars($product['Nama_Produk']) ?></h1>
-        <p><?= htmlspecialchars($product['Deskripsi']) ?></p>
-        <h3>Harga: Rp <?= number_format($product['Harga'], 0, ',', '.') ?></h3>
+    <div class="product-container">
+    <img class="product-image" src="<?= htmlspecialchars($product['Gambar']) ?>" alt="<?= htmlspecialchars($product['Nama_Produk']) ?>" class="product-image">
+    <div class="product-details">
+        <h1 class="detailnamaproduk"><?= htmlspecialchars($product['Nama_Produk']) ?></h1>
+        <p class="detaildeskripsiproduk"><?= htmlspecialchars($product['Deskripsi']) ?></p>
+        <h3 class="detailhargaproduk">Harga: Rp <?= number_format($product['Harga'], 0, ',', '.') ?></h3>
         <a href="home.php" class="back-button">Kembali ke Home</a>
+    </div>
     </div>
 </body>
 </html>

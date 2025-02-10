@@ -3,9 +3,16 @@ try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    $query = $db->query("SELECT Nama_Produk, Deskripsi, Harga, Gambar FROM Produk");
-    $products = $query->fetchAll(PDO::FETCH_ASSOC);
-} catch (PDOException $e) {
+    $search_query = "%%";
+    if(isset($_GET['Search_Query'])){
+      $search_query = "%{$_GET['Search_Query']}%";
+    }
+    $sql = "SELECT * FROM Produk WHERE Nama_Produk LIKE :Nama_Produk";
+    $stmt = $db->prepare($sql);
+    $stmt->bindValue(':Nama_Produk',$search_query, PDO::PARAM_STR);
+    $stmt->execute();
+    $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
+} catch (PDOException $e) {   
     echo "Error: " . $e->getMessage();
     die();
 }
@@ -24,14 +31,19 @@ try {
   </head>
   <body>
     <div class="Navbar">
-      <img class="LogoNavbar" src="gambar/jerseyfy_logo.png" alt="Logo" />
+    <img class="LogoNavbar" src="gambar/jerseyfy_logo.png" alt="Logo" />
       <ul>
         <li class="Home">Home</li>
         <li><a href="historyorder.php">History Order</a></li>
       </ul>
-      <input type="search" id="searchproduk" placeholder="Search">
+      <div class="kiri">
+        <form action="">
+      <input type="search" id="searchproduk" autocomplete="off" name="Search_Query" placeholder="Search">
+      <button type="submit">Search</button>
+      </form>
       <i class="fa-solid fa-cart-shopping"></i>
       <a class="LogoutButton" href="logout.php">Log Out</a>
+      </div>
     </div>
     <h1>Daftar Produk</h1>
     <div class="product-container">
@@ -53,4 +65,3 @@ try {
     </div>   
   </body>
 </html>
-
