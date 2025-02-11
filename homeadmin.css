@@ -2,27 +2,22 @@ body {
   background-color: antiquewhite;
   margin: 0;
   padding: 0;
-  margin-left: 220px;
   font-family: Arial, sans-serif;
 }
 
 .Navbar {
-  background-color: burlywood;
-  position: fixed;
+  background-color: brown;
   top: 0;
   left: 0;
-  height: 100%;
-  width: 220px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   align-items: center;
   padding: 0;
 }
 
 .LogoNavbar {
-  width: 100%;
+  width: 150px;
   margin-bottom: 0px;
-  border-bottom: 1px solid white;
 }
 
 ul {
@@ -41,7 +36,6 @@ ul {
 
 li {
   font-size: 18px;
-  margin: 10%;
 }
 
 li a {

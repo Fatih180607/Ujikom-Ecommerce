@@ -17,6 +17,7 @@ body {
 
 .kiri{
   margin-left: auto;
+  display: flex;
 }
 
 .LogoNavbar {
@@ -125,5 +126,48 @@ h1 {
 }
 
 .fa-cart-shopping {
-  color: red;
+  color: white;
+}
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.searchbar input[type="search"] {
+  padding: 8px 12px;
+  width: 250px;
+  border: 2px solid black;
+  border-radius: 5px;
+  outline: none;
+  background-color: #f9f9f9;
+}
+
+.searchbar input[type="search"]::placeholder {
+  color: #999;
+}
+
+.dropdown_kategori {
+  padding: 8px 12px;
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: white;
+  color: black;
+  outline: none;
+  cursor: pointer;
+}
+
+.dropdown_kategori option {
+  color: black;
+}
+
+.LogoutButton{
+  color: white;
+}
+
+.content_navbar{
+  display: flex;
+  margin-left: auto;
+  margin-right: 2%;
 }

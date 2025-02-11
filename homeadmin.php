@@ -34,17 +34,16 @@ try {
     <link rel="stylesheet" href="homeadmin.css"/>
   </head>
   <body>
-  <div class="Daftar_Produk">
-    <h1>Daftar Produk</h1>   
-    <button class="AddProductButton"><a href="addproductadmin.php">Add Product</a></button> 
     <div class="Navbar">
-      <img class="LogoNavbar" src="gambar/removebg.png" alt="Logo" />
+      <img class="LogoNavbar" src="gambar/logoitem.png">
       <ul>
         <li class="Home">Home</li>
-        <li><a href="orderadmin.php">Order</a></li>
       </ul>
       <a class="LogoutButton" href="logout.php">Log Out</a>
     </div>
+  <div class="Daftar_Produk">
+    <h1>Daftar Produk</h1>   
+    <button class="AddProductButton"><a href="addproductadmin.php">Add Product</a></button> 
     <table class="tabel_produk">
       <thead>
         <tr>

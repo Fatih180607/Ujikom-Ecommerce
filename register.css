@@ -1,0 +1,140 @@
+body {
+    margin: 0;
+    padding: 0;
+    min-height: 100vh;
+    background-color: #fafafa;
+    font-family: 'Poppins', sans-serif;
+  }
+  
+  .containerform{
+    padding-top: 2%;
+  }
+  
+  .loginbg {
+    width: 400px; 
+    padding: 20px;
+    background: white;
+    border-radius: 2px;
+    border: 1px solid #e9e9e9;
+    display: block;
+    margin: 0 auto;
+  }
+  
+  .password-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .password-wrapper input {
+    flex: 1;
+    padding-right: 40px; 
+  }
+  
+  .password-wrapper i {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #888;
+  }
+  
+  .password-wrapper i:hover {
+    color: #333;
+  }
+  
+  
+  .ButtonLogin{
+    background-color: black;
+    width: 100%;
+    margin-top: 1%;
+    color: white;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .ButtonRegist{
+    margin-top: 2%;
+    background-color: black;
+    color: white;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+  }
+  
+  input{
+    width: 91%;
+    padding: 1rem;  
+  }
+  
+  .error-messagelogin{
+    font-family:Arial, Helvetica, sans-serif;
+    text-align: center;
+    color: red;
+  }
+  
+  .jerseyfylogo{
+    width: 300px; 
+    height: auto; 
+    display: block;
+    margin: 0 auto; 
+  }
+  
+  .navbar_logo{
+    padding-top: 5px;
+    border-bottom: 1px solid #e9e9e9;
+    background-color: white;
+  }
+  
+  .signup-login{
+    font-family: sans-serif;
+    display: flex;
+    justify-content: space-between;
+    margin-right: 5rem;
+    margin-left: 5rem;
+  }
+  
+  a{
+    text-decoration: none;
+    color: green;
+  }
+  
+  .signup{
+    border-bottom: 2px solid black;
+    color: black;
+    font-family: sans-serif;
+    font-weight: normal;
+    padding: 10px;  
+  }
+  
+  .login{
+    border-bottom: 2px solid #e0e0e0;
+    color: #616161;
+    font-family: sans-serif;
+    font-weight: normal;
+    padding: 10px;
+  }
+  
+  .Registeratas{
+    text-align: center;
+    font-family: sans-serif;
+    font-weight: normal;
+  }
+  
+  .registeraccount{
+    text-align: center;
+    font-weight: normal;
+    color: black;
+  }
+  
+  input::placeholder {
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    color: #9e9e9e;
+    font-weight: 200; 
+  }
+
+  b{
+    font-weight: normal;
+  }
+
+  .Loginh2{
+    text-align: center;
+  }

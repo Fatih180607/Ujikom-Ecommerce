@@ -38,18 +38,28 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
     <link rel="icon" type="gambar" href="gambar/removebg.png">
-    <link rel="stylesheet" href="style.css" />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
+    <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
+    <link rel="stylesheet" href="register.css" />
   </head>
   <body>
+  <div class="navbar_logo">
+<img class="jerseyfylogo" src="gambar/logoitem-lebih-kecil.png">
+</div>
+<div class="containerform">
     <div class="loginbg">
-      <h2 class="Loginh2">Register</h2>
+    <div class="signup-login">
+            <h3 class="signup">Sign Up</h3>
+            <a href="index.php"><h3 class="login">Login</h3></a>
+        </div>
+      <h2 class="Registeratas">Register</h2>
       <form action="register.php" method="POST" autocomplete="off">
         <label for="username"><b>Username</b></label>
         <br />
         <input
           type="text"
           id="username"
-          placeholder="Enter Username"
+          placeholder="Username*"
           name="username"
           required
         />
@@ -59,26 +69,39 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input
           type="email"
           id="email"
-          placeholder="Enter Email"
+          placeholder="Email*"
           name="email"
           required
         />
         <br /><br />
         <label for="password"><b>Password</b></label>
         <br />
-        <input
-          type="password"
-          id="password"
-          placeholder="Enter Password"
-          name="password"
-          required
-        />
+        <div class="password-wrapper">
+  <input type="password" id="password" placeholder="Password*" name="password" required />
+  <i class="fas fa-eye" id="togglePassword"></i>
+</div>
+
         <br /><br />
-        <input class="ButtonRegist" type="submit" value="Create Account" />
+        <input class="ButtonRegist" type="submit" value="Sign Up" />
       </form>
       <p class="Loginh2">
         Already have an account? <a href="index.php">Login here</a>
       </p>
     </div>
+</div>
+<script>
+  const togglePassword = document.querySelector("#togglePassword");
+const passwordField = document.querySelector("#password");
+
+togglePassword.addEventListener("click", function () {
+    // Toggle visibility password
+    const isPasswordVisible = passwordField.type === "password";
+    passwordField.type = isPasswordVisible ? "text" : "password";
+
+    // Toggle icon
+    this.classList.toggle("fa-eye-slash");
+});
+
+</script>
   </body>
 </html>

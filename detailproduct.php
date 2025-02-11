@@ -41,6 +41,14 @@ try {
         <h1 class="detailnamaproduk"><?= htmlspecialchars($product['Nama_Produk']) ?></h1>
         <p class="detaildeskripsiproduk"><?= htmlspecialchars($product['Deskripsi']) ?></p>
         <h3 class="detailhargaproduk">Harga: Rp <?= number_format($product['Harga'], 0, ',', '.') ?></h3>
+
+          <form action="add_to_cart.php" method="post">
+                <input type="hidden" name="produk_id" value="<?= htmlspecialchars($_GET['id']); ?>">
+                <label for="jumlah">Jumlah:</label>
+                <input type="number" name="jumlah" value="1" min="1">
+                <button type="submit">Add to Cart</button>
+            </form>
+                
         <a href="home.php" class="back-button">Kembali ke Home</a>
     </div>
     </div>

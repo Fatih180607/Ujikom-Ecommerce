@@ -59,20 +59,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <title>Login</title>
     <link rel="icon" type="gambar" href="gambar/removebg.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.13.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div class="navbar_logo">
+<img class="jerseyfylogo" src="gambar/logoitem-lebih-kecil.png">
+</div>
+<div class="containerform">
     <div class="loginbg">
-        <img class="jerseyfylogo" src="gambar/logoitem.png">
+        <div class="signup-login">
+            <a href="register.php"><h3 class="signup">Sign Up</h3></a>
+            <h3 class="login">Login</h3>
+        </div>
+        <h2 class="loginh2">Login</h2>
         <form action="index.php" method="POST" autocomplete="off">
-            <label for="username"><b>Username</b></label>
-            <br />
-            <input type="text" id="username" placeholder="Username" name="username" required />
+        <label for="username"><b>Username</b></label><br/>
+            <input type="text" id="username" placeholder="Username*" name="username" required />
             <br /><br />
-            <label for="password"><b>Password</b></label>
-            <br />
+            <label for="Password"><b>Password</b></label><br/>
             <div class="password-wrapper">
-            <input type="password" id="password" placeholder="Enter Password" name="password" required />
+            <input type="password" id="password" placeholder="Password*" name="password" required />
             <i class="fas fa-eye" id="togglePassword"></i>
         </div>
             <br /><br />
@@ -83,17 +90,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo "<p class='error-messagelogin'>$errorMessage</p>";
         }
         ?>
-        <p class="Loginh2">Don't have an account yet? <a href="register.php">Register here</a></p>
+        <p class="registeraccount">Don't have an account yet? <a href="register.php">Register here</a></p>
         </div>
-    </>
+ </div>
     <script>
-         const togglePassword = document.querySelector("#togglePassword");
-    const passwordField = document.querySelector("#password");
-    togglePassword.addEventListener("click", function () {
-        const type = passwordField.getAttribute("type") === "password" ? "text" : "password";
-        passwordField.setAttribute("type", type);
-        this.classList.toggle("fa-eye-slash");
-    });
+          const togglePassword = document.querySelector("#togglePassword");
+const passwordField = document.querySelector("#password");
+
+togglePassword.addEventListener("click", function () {
+    // Toggle visibility password
+    const isPasswordVisible = passwordField.type === "password";
+    passwordField.type = isPasswordVisible ? "text" : "password";
+
+    // Toggle icon
+    this.classList.toggle("fa-eye-slash");
+});
+
     </script>
 </body>
 </html>
