@@ -1,9 +1,9 @@
 <?php
 try {
+    session_start();
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Default query untuk semua produk
     $search_query = "%%";
     $kategori_query = "";
 
@@ -27,7 +27,7 @@ try {
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     // Ambil daftar kategori unik
-    $kategori_stmt = $db->query("SELECT DISTINCT Kategori FROM Produk");
+    $kategori_stmt = $db->query("SELECT DISTINCT Kategori FROM Kategori");
     $kategori_list = $kategori_stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -65,6 +65,7 @@ try {
                 ?>
             </select>
 
+            <?php echo $_SESSION['username'];?>
             <button class="dropdown_kategori" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         </div>

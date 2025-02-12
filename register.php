@@ -24,6 +24,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         ':role' => $role,
     ]);
     $message = "Registration successful!";
+    $_SESSION['Username'] = $username;
     header("Location: index.php");
 }
 

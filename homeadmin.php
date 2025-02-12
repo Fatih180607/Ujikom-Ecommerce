@@ -10,8 +10,6 @@ if (isset($_SESSION['role'])) {
   header("Location:index.php");
 }
 
-
-
 try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
