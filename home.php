@@ -65,12 +65,12 @@ try {
                 ?>
             </select>
 
-            <?php echo $_SESSION['username'];?>
             <button class="dropdown_kategori" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
         </form>
         </div>
       <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
       <a class="LogoutButton" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
+      <?php echo $_SESSION['username'];?>
       </div>
     </div>
     <h1>Daftar Produk</h1>

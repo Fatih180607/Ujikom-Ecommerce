@@ -24,55 +24,89 @@ try {
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
-    <link rel="icon" type="image/png" href="gambar/removebg.png" />
-    <link rel="stylesheet" href="homeadmin.css"/>
-  </head>
-  <body>
-    <div class="Navbar">
-      <img class="LogoNavbar" src="gambar/logoitem.png">
-      <ul>
-        <li class="Home">Home</li>
-      </ul>
-      <a class="LogoutButton" href="logout.php">Log Out</a>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin</title>
+    <link rel="stylesheet" href="homeadmin.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="gambar/logoitem.png" alt="Logo">
+        </div>
+        <ul>
+            <li><a href="homeadmin.php"><i class="fas fa-home"></i> Dashboard</a></li>
+            <li><a href="addproductadmin.php"><i class="fas fa-plus"></i> Tambah Produk</a></li>
+            <li><a href="kategori_produk.php"><i class="fa-solid fa-table-list"></i> Kategori</a></li>
+            <li><a href="logout.php" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
+        </ul>
     </div>
-  <div class="Daftar_Produk">
-    <h1>Daftar Produk</h1>   
-    <button class="AddProductButton"><a href="addproductadmin.php">Add Product</a></button> 
-    <table class="tabel_produk">
-      <thead>
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">Nama</th>
-          <th scope="col">Deskripsi</th>
-          <th scope="col">Harga</th>
-          <th scope="col">Action</th>
-        </tr>
-      </thead>
-      <tbody class="row_produk">
-    <?php
-    foreach ($products as $product) {
-        echo '<tr>';
-        echo '<td class="Id_Produk">' . htmlspecialchars($product['ID']) . '</td>';
-        echo '<td class="Nama_Produk_Table">' . htmlspecialchars($product['Nama_Produk']) . '</td>';
-        echo '<td class="Deskripsi_Produk">' . htmlspecialchars($product['Deskripsi']) . '</td>';
-        echo '<td class="Harga_Produk"> Rp ' . number_format($product['Harga'], 0, ',', '.') . '</td>';
-        echo '<td>';
-        echo '<a href="deleteproduk.php?ID=' . htmlspecialchars($product['ID']) . '" onclick="return confirm(\'Apakah Anda yakin ingin menghapus produk ini?\')">';
-        echo '<input class="ButtonLogin" type="button" value="Delete">';
-        echo '</a>';
-        echo '<a href="editproduk.php?ID=' . htmlspecialchars($product['ID']) . '">';
-        echo '<input class="ButtonEdit" type="button" value="Edit">';
-        echo '</a>';
-        echo '</td>';
-        echo '</tr>';
+    
+    <div class="content">
+        <header>
+            <h1>Daftar Produk</h1>
+        </header>
+
+        <button class="btn-add">
+            <a href="addproductadmin.php"><i class="fas fa-plus"></i> Tambah Produk</a>
+        </button>
+
+        <table class="product-table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Nama</th>
+                    <th>Deskripsi</th>
+                    <th>Harga</th>
+                    <th>Aksi</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($products as $product): ?>
+                    <tr onclick="openPopup(
+                        '<?= htmlspecialchars($product['Nama_Produk']) ?>', 
+                        '<?= htmlspecialchars($product['Deskripsi']) ?>', 
+                        '<?= number_format($product['Harga'], 0, ',', '.') ?>', 
+                        '<?= htmlspecialchars($product['Gambar']) ?>'
+                    )">
+                        <td><?= htmlspecialchars($product['ID']) ?></td>
+                        <td><?= htmlspecialchars($product['Nama_Produk']) ?></td>
+                        <td><?= htmlspecialchars($product['Deskripsi']) ?></td>
+                        <td>Rp <?= number_format($product['Harga'], 0, ',', '.') ?></td>
+                        <td class='actions'>
+                            <a href='editproduk.php?ID=<?= htmlspecialchars($product['ID']) ?>' class='btn-edit'><i class='fas fa-edit'></i> Edit</a>
+                            <a href='deleteproduk.php?ID=<?= htmlspecialchars($product['ID']) ?>' class='btn-delete' onclick='return confirm("Apakah Anda yakin ingin menghapus produk ini?")'><i class='fas fa-trash'></i> Hapus</a>
+                        </td>
+                    </tr>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
+
+    <div id="popupDetail" class="popup">
+        <div class="popup-content">
+            <span class="close-btn" onclick="closePopup()">&times;</span>
+            <h2 id="popupNama"></h2>
+            <img id="popupGambar" src="" alt="Gambar Produk">
+            <p id="popupDeskripsi"></p>
+            <p><strong>Harga:</strong> Rp <span id="popupHarga"></span></p>
+        </div>
+    </div>
+
+    <script>
+    function openPopup(nama, deskripsi, harga, gambar) {
+        document.getElementById('popupNama').textContent = nama;
+        document.getElementById('popupDeskripsi').textContent = deskripsi;
+        document.getElementById('popupHarga').textContent = harga;
+        document.getElementById('popupGambar').src = gambar;
+        document.getElementById('popupDetail').style.display = 'flex';
     }
-    ?>
-      </tbody>
-    </table>
-      </div>
-  </body>
+
+    function closePopup() {
+        document.getElementById('popupDetail').style.display = 'none';
+    }
+    </script>
+</body>
 </html>
