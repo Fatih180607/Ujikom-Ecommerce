@@ -14,7 +14,7 @@ try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    $query = $db->query("SELECT ID,Nama_Produk, Deskripsi, Harga, Gambar FROM Produk");
+    $query = $db->query("SELECT ID,Nama_Produk, Deskripsi, Gambar FROM Produk");
     $products = $query->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -46,6 +46,7 @@ try {
     
     <div class="content">
         <header>
+            <h1 class="dashboardtext">Dashboard</h1>
             <h1>Daftar Produk</h1>
         </header>
 
@@ -59,29 +60,35 @@ try {
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Deskripsi</th>
-                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
             <tbody>
-                <?php foreach ($products as $product): ?>
-                    <tr onclick="openPopup(
-                        '<?= htmlspecialchars($product['Nama_Produk']) ?>', 
-                        '<?= htmlspecialchars($product['Deskripsi']) ?>', 
-                        '<?= number_format($product['Harga'], 0, ',', '.') ?>', 
-                        '<?= htmlspecialchars($product['Gambar']) ?>'
-                    )">
-                        <td><?= htmlspecialchars($product['ID']) ?></td>
-                        <td><?= htmlspecialchars($product['Nama_Produk']) ?></td>
-                        <td><?= htmlspecialchars($product['Deskripsi']) ?></td>
-                        <td>Rp <?= number_format($product['Harga'], 0, ',', '.') ?></td>
-                        <td class='actions'>
-                            <a href='editproduk.php?ID=<?= htmlspecialchars($product['ID']) ?>' class='btn-edit'><i class='fas fa-edit'></i> Edit</a>
-                            <a href='deleteproduk.php?ID=<?= htmlspecialchars($product['ID']) ?>' class='btn-delete' onclick='return confirm("Apakah Anda yakin ingin menghapus produk ini?")'><i class='fas fa-trash'></i> Hapus</a>
-                        </td>
-                    </tr>
-                <?php endforeach; ?>
-            </tbody>
+    <?php foreach ($products as $product): ?>
+        <tr onclick="openPopup(
+            '<?= htmlspecialchars($product['Nama_Produk']) ?>', 
+            '<?= htmlspecialchars($product['Deskripsi']) ?>', 
+            '<?= htmlspecialchars($product['Gambar']) ?>')">
+            
+            <td><?= htmlspecialchars($product['ID']) ?></td>
+            <td><?= htmlspecialchars($product['Nama_Produk']) ?></td>
+            <td><?= htmlspecialchars($product['Deskripsi']) ?></td>
+            <td class='actions'>
+                <a href='editproduk.php?ID=<?= htmlspecialchars($product['ID']) ?>' 
+                   class='btn-edit' 
+                   onclick="event.stopPropagation();">
+                   <i class='fas fa-edit'></i> Edit
+                </a>
+                
+                <a href='deleteproduk.php?ID=<?= htmlspecialchars($product['ID']) ?>' 
+                   class='btn-delete' 
+                   onclick="event.stopPropagation(); return confirm('Apakah Anda yakin ingin menghapus produk ini?');">
+                   <i class='fas fa-trash'></i> Hapus
+                </a>
+            </td>
+        </tr>
+    <?php endforeach; ?>
+</tbody>
         </table>
     </div>
 
@@ -89,7 +96,7 @@ try {
         <div class="popup-content">
             <span class="close-btn" onclick="closePopup()">&times;</span>
             <h2 id="popupNama"></h2>
-            <img id="popupGambar" src="" alt="Gambar Produk">
+            <img class="popup-gambar" id="popupGambar" src="" alt="Gambar Produk">
             <p id="popupDeskripsi"></p>
             <p><strong>Harga:</strong> Rp <span id="popupHarga"></span></p>
         </div>

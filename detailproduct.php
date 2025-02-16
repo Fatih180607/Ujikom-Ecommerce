@@ -4,17 +4,30 @@ try {
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     if (isset($_GET['id'])) {
-        $namaProduk = urldecode($_GET['id']); 
-        $stmt = $db->prepare("SELECT Nama_Produk, Deskripsi, Harga, Gambar FROM Produk WHERE Nama_Produk = :nama");
-        $stmt->bindParam(':nama', $namaProduk, PDO::PARAM_STR);
+        $produkID = intval($_GET['id']); // Konversi ID ke integer untuk keamanan
+
+        // Query untuk mendapatkan detail produk
+        $stmt = $db->prepare("SELECT Nama_Produk, Deskripsi, Gambar FROM Produk WHERE ID = :id");
+        $stmt->bindParam(':id', $produkID, PDO::PARAM_INT);
         $stmt->execute();
 
         $product = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if (!$product) {
-            echo($product); 
+            echo "<p>Produk tidak ditemukan.</p>";
             exit;
         }
+
+        // Query untuk mendapatkan ukuran dan harga dari SizeProduct
+        $stmtSize = $db->prepare("SELECT Size_Produk, Harga FROM SizeProduct WHERE ID_Product = :id ORDER BY Harga ASC");
+        $stmtSize->bindParam(':id', $produkID, PDO::PARAM_INT);
+        $stmtSize->execute();
+
+        $sizes = $stmtSize->fetchAll(PDO::FETCH_ASSOC);
+
+        // Ambil harga pertama sebagai default
+        $hargaTermurah = !empty($sizes) ? $sizes[0]['Harga'] : null;
+
     } else {
         header("Location: home.php");
         exit;
@@ -26,31 +39,67 @@ try {
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Produk</title>
-    <link rel="icon" type="gambar" href="gambar/removebg.png"/>
+    <link rel="icon" type="image/png" href="gambar/removebg.png"/>
     <link rel="stylesheet" href="detailproduct.css">
 </head>
 <body>
     <div class="product-container">
-    <img class="product-image" src="<?= htmlspecialchars($product['Gambar']) ?>" alt="<?= htmlspecialchars($product['Nama_Produk']) ?>" class="product-image">
-    <div class="product-details">
-        <h1 class="detailnamaproduk"><?= htmlspecialchars($product['Nama_Produk']) ?></h1>
-        <p class="detaildeskripsiproduk"><?= htmlspecialchars($product['Deskripsi']) ?></p>
-        <h3 class="detailhargaproduk">Harga: Rp <?= number_format($product['Harga'], 0, ',', '.') ?></h3>
+        <img class="product-image" src="<?= htmlspecialchars($product['Gambar']) ?>" alt="<?= htmlspecialchars($product['Nama_Produk']) ?>">
+        
+        <div class="product-details">
+            <h1 class="detailnamaproduk"><?= htmlspecialchars($product['Nama_Produk']) ?></h1>
+            <p class="detaildeskripsiproduk"><?= htmlspecialchars($product['Deskripsi']) ?></p>
 
-          <form action="add_to_cart.php" method="post">
-                <input type="hidden" name="produk_id" value="<?= htmlspecialchars($_GET['id']); ?>">
-                <label for="jumlah">Jumlah:</label>
-                <input type="number" name="jumlah" value="1" min="1">
-                <button type="submit">Add to Cart</button>
-            </form>
-                
-        <a href="home.php" class="back-button">Kembali ke Home</a>
+            <!-- Menampilkan harga berdasarkan size -->
+            <p class="detailhargaproduk" id="harga-produk">
+                <?php if ($hargaTermurah !== null): ?>
+                    Harga: Rp <span id="harga"><?= number_format($hargaTermurah, 0, ',', '.') ?></span>
+                <?php else: ?>
+                    Harga: Tidak tersedia
+                <?php endif; ?>
+            </p>
+
+            <!-- Dropdown untuk memilih ukuran -->
+            <?php if (!empty($sizes)): ?>
+                <label for="size">Pilih Ukuran:</label>
+                <select id="size" name="size" onchange="updatePrice()">
+                    <?php foreach ($sizes as $size): ?>
+                        <option value="<?= htmlspecialchars($size['Harga']) ?>">
+                            <?= htmlspecialchars($size['Size_Produk']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            <?php endif; ?>
+
+            <form action="addproductcart.php" method="post">
+    <input type="hidden" name="produk_id" value="<?= htmlspecialchars($produkID); ?>">
+    <input type="hidden" name="size" id="selected-size" value="<?= !empty($sizes) ? htmlspecialchars($sizes[0]['Size_Produk']) : '' ?>">
+    
+    <label for="jumlah">Jumlah:</label>
+    <input type="number" name="jumlah" value="1" min="1">
+    
+    <button type="submit">Add to Cart</button>
+</form>
+
+<a href="home.php" class="back-button">Kembali ke Home</a>
+        </div>
     </div>
-    </div>
+
+<script>
+    function updatePrice() {
+        const hargaElement = document.getElementById("harga");
+        const sizeSelect = document.getElementById("size");
+        const selectedSize = document.getElementById("selected-size");
+        
+        hargaElement.textContent = new Intl.NumberFormat('id-ID').format(sizeSelect.value);
+        selectedSize.value = sizeSelect.options[sizeSelect.selectedIndex].text;
+    }
+</script>
+
 </body>
 </html>

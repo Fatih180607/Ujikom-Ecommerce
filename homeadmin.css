@@ -9,17 +9,27 @@ body {
 
 .sidebar {
     width: 250px;
-    height: 100vh;
+    height: 100vh; 
     background: linear-gradient(135deg, #007BFF, #0056b3);
     display: flex;
     flex-direction: column;
     align-items: center;
     padding-top: 20px;
+    
     position: fixed;
     left: 0;
     top: 0;
+    
     box-shadow: 3px 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
 }
+
+.content {
+    margin-left: 250px; 
+    padding: 20px;
+    width: calc(100% - 250px);
+}
+
 
 .sidebar .logo img {
     width: 120px;
@@ -55,13 +65,6 @@ body {
 }
 
 
-.content {
-    margin-left: 270px;
-    padding: 20px;
-    width: calc(100% - 270px);
-}
-
-
 header h1 {
     color: #333;
     text-align: left;
@@ -92,7 +95,6 @@ header h1 {
     color: white;
     text-decoration: none;
 }
-
 
 .product-table {
     width: 100%;
@@ -166,17 +168,17 @@ header h1 {
   background: white;
   padding: 20px;
   width: 50%;
-  max-width: 500px;
+  max-width: 800px;
   border-radius: 10px;
   text-align: center;
   position: relative;
 }
 
-.popup-content img {
+.popup-gambar{
   width: 100%;
-  max-height: 250px;
-  object-fit: cover;
+  object-fit: contain;
   border-radius: 5px;
+  max-width: 300px;
 }
 
 .close-btn {
@@ -230,4 +232,8 @@ header h1 {
 .product-table tbody tr:hover {
   background-color: #f2f2f2;
   cursor: pointer;
+}
+
+.dashboardtext{
+    text-align: center;
 }
