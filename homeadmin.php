@@ -14,7 +14,13 @@ try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     
-    $query = $db->query("SELECT ID,Nama_Produk, Deskripsi, Gambar FROM Produk");
+    $query = $db->query("
+    SELECT Produk.ID, Produk.Nama_Produk, Produk.Deskripsi, Produk.Gambar, 
+           COALESCE(MIN(SizeProduct.Harga), 0) AS Harga 
+    FROM Produk
+    LEFT JOIN SizeProduct ON Produk.ID = SizeProduct.ID_Product
+    GROUP BY Produk.ID
+");
     $products = $query->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
     echo "Error: " . $e->getMessage();
@@ -60,6 +66,7 @@ try {
                     <th>ID</th>
                     <th>Nama</th>
                     <th>Deskripsi</th>
+                    <th>Harga</th>
                     <th>Aksi</th>
                 </tr>
             </thead>
@@ -72,7 +79,8 @@ try {
             
             <td><?= htmlspecialchars($product['ID']) ?></td>
             <td><?= htmlspecialchars($product['Nama_Produk']) ?></td>
-            <td><?= htmlspecialchars($product['Deskripsi']) ?></td>
+            <td><?= htmlspecialchars($product['Deskripsi']) ?></td>  
+            <td>Rp <?= number_format($product['Harga'], 0, ',', '.') ?></td> <!-- Menampilkan Harga -->
             <td class='actions'>
                 <a href='editproduk.php?ID=<?= htmlspecialchars($product['ID']) ?>' 
                    class='btn-edit' 
@@ -89,6 +97,7 @@ try {
         </tr>
     <?php endforeach; ?>
 </tbody>
+
         </table>
     </div>
 
@@ -98,15 +107,13 @@ try {
             <h2 id="popupNama"></h2>
             <img class="popup-gambar" id="popupGambar" src="" alt="Gambar Produk">
             <p id="popupDeskripsi"></p>
-            <p><strong>Harga:</strong> Rp <span id="popupHarga"></span></p>
         </div>
     </div>
 
     <script>
-    function openPopup(nama, deskripsi, harga, gambar) {
+    function openPopup(nama, deskripsi, gambar) {
         document.getElementById('popupNama').textContent = nama;
         document.getElementById('popupDeskripsi').textContent = deskripsi;
-        document.getElementById('popupHarga').textContent = harga;
         document.getElementById('popupGambar').src = gambar;
         document.getElementById('popupDetail').style.display = 'flex';
     }

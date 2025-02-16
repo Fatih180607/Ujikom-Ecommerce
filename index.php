@@ -64,45 +64,41 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 </head>
 <body>
     <div class="navbar_logo">
-<img class="jerseyfylogo" src="gambar/logoitem-lebih-kecil.png">
-</div>
-<div class="containerform">
-    <div class="loginbg">
-        <div class="signup-login">
-            <a href="register.php"><h3 class="signup">Sign Up</h3></a>
-            <h3 class="login">Login</h3>
+        <img class="jerseyfylogo" src="gambar/logoitem-lebih-kecil.png">
+    </div>
+    <div class="hero-section"></div>
+
+    <div class="containerform">
+        <div class="loginbg">
+            <div class="signup-login">
+                <a href="register.php"><h3 class="signup">Sign Up</h3></a>
+                <h3 class="login">Login</h3>
+            </div>
+            <h2 class="loginh2">Login</h2>
+            <form action="index.php" method="POST" autocomplete="off">
+                <label for="username"><b>Username</b></label><br/>
+                <input type="text" id="username" placeholder="Username*" name="username" required />
+                <br /><br />
+                <label for="Password"><b>Password</b></label><br/>
+                <div class="password-wrapper">
+                    <input type="password" id="password" placeholder="Password*" name="password" required />
+                    <i class="fas fa-eye" id="togglePassword"></i>
+                </div>
+                <br /><br />
+                <input class="ButtonLogin" type="submit" value="Login"/>
+            </form>
+            <p class="registeraccount">Don't have an account yet? <a href="register.php">Register here</a></p>
         </div>
-        <h2 class="loginh2">Login</h2>
-        <form action="index.php" method="POST" autocomplete="off">
-        <label for="username"><b>Username</b></label><br/>
-            <input type="text" id="username" placeholder="Username*" name="username" required />
-            <br /><br />
-            <label for="Password"><b>Password</b></label><br/>
-            <div class="password-wrapper">
-            <input type="password" id="password" placeholder="Password*" name="password" required />
-            <i class="fas fa-eye" id="togglePassword"></i>
-        </div>
-            <br /><br />
-            <input class="ButtonLogin" type="submit" value="Login"/>
-        </form>
-        <?php
-        if ($errorMessage) {
-            echo "<p class='error-messagelogin'>$errorMessage</p>";
-        }
-        ?>
-        <p class="registeraccount">Don't have an account yet? <a href="register.php">Register here</a></p>
-        </div>
- </div>
+    </div>
+    
     <script>
           const togglePassword = document.querySelector("#togglePassword");
 const passwordField = document.querySelector("#password");
 
 togglePassword.addEventListener("click", function () {
-    // Toggle visibility password
     const isPasswordVisible = passwordField.type === "password";
     passwordField.type = isPasswordVisible ? "text" : "password";
 
-    // Toggle icon
     this.classList.toggle("fa-eye-slash");
 });
 
