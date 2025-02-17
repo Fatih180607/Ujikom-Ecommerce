@@ -78,11 +78,55 @@ $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             <div class="cart-summary">
                 <h2>Total Belanja: Rp <?= number_format($total_cart, 0, ',', '.') ?></h2>
-                <a href="checkout.php" class="checkout-btn">Checkout</a>
+                <a href="checkout.php" id="checkout-button" class="checkout-btn">Checkout</a>
             </div>
         <?php endif; ?>
 
         <a href="home.php" class="back-btn">Lanjut Belanja</a>
     </div>
+
+    <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-34RL4XHkHmRnFzEj"></script>
+<script>
+document.getElementById("checkout-button").addEventListener("click", async function(event) {
+    event.preventDefault(); 
+
+    try {
+        const response = await fetch("checkout.php", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" }
+        });
+
+        if (!response.ok) {
+            throw new Error(`Response status: ${response.status}`);
+        }
+
+        const json = await response.json();
+        if (json.snapToken) {
+            window.snap.pay(json.snapToken, {
+                onSuccess: function(result) {
+                    alert("Pembayaran sukses!");
+                    window.location.href = "home.php";
+                },
+                onPending: function(result) {
+                    alert("Pembayaran tertunda. Silakan cek kembali nanti.");
+                },
+                onError: function(result) {
+                    alert("Pembayaran gagal. Silakan coba lagi.");
+                },
+                onClose: function() {
+                    alert("Anda menutup pembayaran sebelum selesai.");
+                }
+            });
+        } else {
+            alert("Gagal mendapatkan token pembayaran.");
+        }
+    } catch (error) {
+        console.error(error.message);
+        alert("Terjadi kesalahan saat memproses checkout.");
+    }
+});
+</script>
+
+
 </body>
 </html>

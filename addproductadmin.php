@@ -3,16 +3,12 @@ try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    try {
-        $db = new PDO('sqlite:db/db.sqlite3');
-        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-        // Ambil daftar kategori
-        $query = $db->query("SELECT ID, Kategori FROM Kategori");
-        $kategori_list = $query->fetchAll(PDO::FETCH_ASSOC);
-    } catch (Exception $e) {
-        echo "Error: " . $e->getMessage();
-    }
+    $query = $db->query("SELECT ID, Kategori FROM Kategori");
+    $kategori_list = $query->fetchAll(PDO::FETCH_ASSOC);
+
+    $query = $db->query("SELECT ID, Nama_Liga,Negara FROM Kategori_Liga");
+    $kategori_liga = $query->fetchAll(PDO::FETCH_ASSOC);
 
 
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -20,8 +16,9 @@ try {
         $Deskripsi = $_POST['Deskripsi'];
         $Harga = $_POST['Harga'];
         $Kategori = $_POST['Kategori'];
+        $Kategori_Liga = $_POST['Kategori_Liga'];
 
-        if (empty($Nama_Produk) || empty($Deskripsi) || empty($Harga) || empty($Kategori)) {
+        if (empty($Nama_Produk) || empty($Deskripsi) || empty($Harga) || empty($Kategori) ||empty($Kategori_Liga)) {
             throw new Exception("Semua kolom wajib diisi.");
         }
 
@@ -45,14 +42,15 @@ try {
             if (move_uploaded_file($fileTmpPath, $destPath)) {
                 $gambarUrl = 'http://' . $_SERVER['HTTP_HOST'] . '/ecommerce/' . $destPath;
 
-                $sql = "INSERT INTO Produk (Nama_Produk, Deskripsi, Harga, Gambar, Kategori) 
-                        VALUES (:Nama_Produk, :Deskripsi, :Harga, :Gambar, :Kategori)";
+                $sql = "INSERT INTO Produk (Nama_Produk, Deskripsi, Harga, Gambar, Kategori,Kategori_Liga) 
+                        VALUES (:Nama_Produk, :Deskripsi, :Harga, :Gambar, :Kategori, :Kategori_Liga)";
                 $stmt = $db->prepare($sql);
                 $stmt->bindParam(':Nama_Produk', $Nama_Produk);
                 $stmt->bindParam(':Deskripsi', $Deskripsi);
                 $stmt->bindParam(':Harga', $Harga);
                 $stmt->bindParam(':Gambar', $gambarUrl);
                 $stmt->bindParam(':Kategori', $Kategori);
+                $stmt->bindParam(':Kategori_Liga', $Kategori_Liga);
                 $stmt->execute();
 
                 $productId = $db->lastInsertId();
@@ -142,7 +140,8 @@ try {
             <label for="Deskripsi">Deskripsi:</label>
             <textarea id="Deskripsi" name="Deskripsi" placeholder="Deskripsi Produk" required cols="80" rows="5"></textarea>
 
-            <label for="Kategori">Kategori:</label>
+            <h3>Kategori</h3>
+            <label for="Kategori">Kategori Produk:</label>
             <select class="dropdown_kategori" name="Kategori" id="kategori">
                 <option value="">Semua Kategori</option>
                 <?php
@@ -152,6 +151,18 @@ try {
                 }
                 ?>
             </select>
+
+            <label for="Kategori_liga">Liga:</label>
+            <select class="dropdown_kategoriliga" name="Kategori_liga" id="kategori_liga">
+                <option value="">Semua Liga</option>
+                <?php
+                foreach ($kategori_liga as $liga) { // Ganti nama variabel iterasi biar tidak bentrok
+                    $selected = (isset($_GET['Kategori_liga']) && $_GET['Kategori_liga'] == $liga['ID']) ? "selected" : "";
+                    echo "<option value='" . htmlspecialchars($liga['ID']) . "' $selected>" . htmlspecialchars($liga['Nama_Liga']) . " - " . htmlspecialchars($liga['Negara']) . "</option>";
+                }
+                ?>
+            </select>
+
 
             <label for="Gambar">Upload Gambar:</label>
             <input type="file" id="Gambar" name="Gambar" accept="image/*" required>
