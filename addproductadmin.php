@@ -3,6 +3,18 @@ try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
+    try {
+        $db = new PDO('sqlite:db/db.sqlite3');
+        $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+        // Ambil daftar kategori
+        $query = $db->query("SELECT ID, Kategori FROM Kategori");
+        $kategori_list = $query->fetchAll(PDO::FETCH_ASSOC);
+    } catch (Exception $e) {
+        echo "Error: " . $e->getMessage();
+    }
+
+
     if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         $Nama_Produk = trim($_POST['Nama_Produk']);
         $Deskripsi = $_POST['Deskripsi'];
@@ -45,22 +57,22 @@ try {
 
                 $productId = $db->lastInsertId();
 
-               
+
                 if (isset($_POST['size']) && isset($_POST['size_price'])) {
                     $sizes = $_POST['size'];
                     $prices = $_POST['size_price'];
 
-                    
+
                     if (count($sizes) !== count($prices)) {
                         throw new Exception("Jumlah ukuran dan harga tidak sesuai.");
                     }
 
-                   
+
                     for ($i = 0; $i < count($sizes); $i++) {
                         $size = trim($sizes[$i]);
                         $price = trim($prices[$i]);
 
-                        
+
                         if (!empty($size) && !empty($price)) {
                             $sqlSize = "INSERT INTO SizeProduct (Size_Produk, Harga, ID_Product) 
                                         VALUES (:size, :price, :productId)";
@@ -69,7 +81,7 @@ try {
                             $stmtSize->bindParam(':price', $price);
                             $stmtSize->bindParam(':productId', $productId);
 
-                            
+
                             if (!$stmtSize->execute()) {
                                 throw new Exception("Gagal memasukkan data ukuran: " . implode(", ", $stmtSize->errorInfo()));
                             }
@@ -96,6 +108,7 @@ try {
 
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -104,6 +117,7 @@ try {
     <link rel="stylesheet" href="addproductadmin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
+
 <body>
     <div class="sidebar">
         <div class="logo">
@@ -119,8 +133,9 @@ try {
 
     <div class="content">
         <h1 class="h1AddProduct">Add Your Product</h1>
-        <form action="addproductadmin.php" method="POST" autocomplete="off" enctype="multipart/form-data">
-            <h3>Detail Product</h3>
+        <form action="proses_addproduct.php" method="POST" autocomplete="off" enctype="multipart/form-data">
+            <h3>Detail Produk</h3>
+
             <label for="Nama_Produk">Nama Produk:</label>
             <input type="text" id="Nama_Produk" name="Nama_Produk" placeholder="Nama Produk" required>
 
@@ -128,7 +143,15 @@ try {
             <textarea id="Deskripsi" name="Deskripsi" placeholder="Deskripsi Produk" required cols="80" rows="5"></textarea>
 
             <label for="Kategori">Kategori:</label>
-            <input type="text" id="Kategori" name="Kategori" placeholder="Kategori Produk" required>
+            <select class="dropdown_kategori" name="Kategori" id="kategori">
+                <option value="">Semua Kategori</option>
+                <?php
+                foreach ($kategori_list as $kategori) {
+                    $selected = (isset($_GET['Kategori']) && $_GET['Kategori'] == $kategori['ID']) ? "selected" : "";
+                    echo "<option value='" . htmlspecialchars($kategori['ID']) . "' $selected>" . htmlspecialchars($kategori['Kategori']) . "</option>";
+                }
+                ?>
+            </select>
 
             <label for="Gambar">Upload Gambar:</label>
             <input type="file" id="Gambar" name="Gambar" accept="image/*" required>
@@ -137,7 +160,7 @@ try {
             <div id="size-container">
                 <div class="size-row">
                     <input type="text" name="size[]" placeholder="Ukuran (contoh: S, M, L)" required>
-                    <input type="number" name="size_price[]" placeholder="Harga" required>
+                    <input type="number" name="size_price[]" placeholder="Harga untuk ukuran ini" required>
                     <button type="button" onclick="removeSize(this)">Hapus</button>
                 </div>
             </div>
@@ -148,40 +171,25 @@ try {
                 <a href="homeadmin.php" class="btn-cancel">Cancel</a>
             </div>
         </form>
-    </div>
 
-    <script>
-        function addSize() {
-            const container = document.getElementById('size-container');
-            const newRow = document.createElement('div');
-            newRow.classList.add('size-row');
-            newRow.innerHTML = `
-                <input type="text" name="size[]" placeholder="Ukuran (contoh: S, M, L)" required>
-                <input type="number" name="size_price[]" placeholder="Harga" required>
-                <button type="button" onclick="removeSize(this)">Hapus</button>
-            `;
-            container.appendChild(newRow);
-        }
-
-        function removeSize(button) {
-            button.parentElement.remove();
-        }
-
-       
-        document.getElementById('Gambar').addEventListener('change', function(event) {
-            const file = event.target.files[0];
-            const preview = document.getElementById('preview');
-            const previewText = document.getElementById('preview-text');
-
-            if (file) {
-                preview.src = URL.createObjectURL(file);
-                preview.style.display = 'block';
-                previewText.style.display = 'none';
-            } else {
-                preview.style.display = 'none';
-                previewText.style.display = 'block';
+        <script>
+            function addSize() {
+                const container = document.getElementById('size-container');
+                const newRow = document.createElement('div');
+                newRow.classList.add('size-row');
+                newRow.innerHTML = `
+            <input type="text" name="size[]" placeholder="Ukuran (contoh: S, M, L)" required>
+            <input type="number" name="size_price[]" placeholder="Harga untuk ukuran ini" required>
+            <button type="button" onclick="removeSize(this)">Hapus</button>
+        `;
+                container.appendChild(newRow);
             }
-        });
-    </script>
+
+            function removeSize(button) {
+                button.parentElement.remove();
+            }
+        </script>
+
 </body>
+
 </html>

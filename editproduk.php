@@ -47,9 +47,6 @@ if (isset($_GET['ID'])) {
     <label for="Deskripsi">Deskripsi:</label>
     <textarea name="Deskripsi" required><?php echo htmlspecialchars($product['Deskripsi']); ?></textarea>
     
-    <label for="Harga">Harga:</label>
-    <input type="number" name="Harga" value="<?php echo htmlspecialchars($product['Harga']); ?>" required>
-    
     <label for="Gambar">Gambar Produk:</label>
     <input type="file" name="Gambar" id="gambarInput" onchange="previewImage(event)">
     
