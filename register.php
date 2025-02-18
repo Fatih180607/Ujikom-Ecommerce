@@ -38,14 +38,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Register</title>
-    <link rel="icon" type="gambar" href="gambar/removebg.png">
+    <link rel="icon" type="gambar" href="gambar/jerseyonly_logo.png">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400&display=swap" rel="stylesheet">
     <link rel="stylesheet"href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"/>
     <link rel="stylesheet" href="register.css" />
   </head>
   <body>
   <div class="navbar_logo">
-<img class="jerseyfylogo" src="gambar/logoitem-lebih-kecil.png">
+<img class="jerseyfylogo" src="gambar/jerseyfy_logo_loginregist.png">
 </div>
 <div class="containerform">
     <div class="loginbg">

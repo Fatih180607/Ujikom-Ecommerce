@@ -51,7 +51,6 @@ body {
     margin-bottom: 20px;
 }
 
-/* Form untuk jumlah dan tombol add to cart */
 form {
     display: flex;
     align-items: center;
@@ -89,7 +88,6 @@ form button:active {
     transform: translateY(1px);
 }
 
-/* Tombol kembali */
 .back-button {
     display: inline-block;
     background-color: #ddd;
@@ -106,7 +104,6 @@ form button:active {
     color: white;
 }
 
-/* Styling untuk dropdown size */
 select#size {
     width: 100%;
     padding: 10px;
@@ -129,7 +126,6 @@ select#size:focus {
     box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
 }
 
-/* Styling untuk dropdown option */
 select#size option {
     font-size: 16px;
     padding: 10px;

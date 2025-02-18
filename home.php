@@ -4,39 +4,38 @@ try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Default search query
-    $search_query = "%%";
-    $kategori_query = "";
+    // Ambil daftar liga dari tabel Kategori_liga
+    $liga_stmt = $db->query("SELECT ID, Nama_Liga FROM Kategori_liga");
+    $liga_list = $liga_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Cek apakah ada parameter pencarian
+    $search_query = "%%";
+    $liga_query = "";
+
     if (isset($_GET['Search_Query'])) {
         $search_query = "%" . $_GET['Search_Query'] . "%";
     }
 
-    // Cek apakah ada kategori yang dipilih
-    if (!empty($_GET['Kategori'])) {
-        $kategori_query = "AND Produk.Kategori = :Kategori";
+    if (!empty($_GET['Liga'])) {
+        $liga_query = "AND Produk.ID_Liga = :Liga";
     }
 
-    // Query untuk mengambil produk dengan harga termurah dari SizeProduct
     $sql = "SELECT Produk.ID, Produk.Nama_Produk, Produk.Deskripsi, Produk.Gambar, 
                    Kategori.Kategori AS Nama_Kategori,
                    (SELECT MIN(Harga) FROM SizeProduct WHERE SizeProduct.ID_Product = Produk.ID) AS Harga_Termurah
             FROM Produk 
             JOIN Kategori ON Produk.Kategori = Kategori.ID
-            WHERE Produk.Nama_Produk LIKE :Nama_Produk $kategori_query";
+            WHERE Produk.Nama_Produk LIKE :Nama_Produk $liga_query";
 
     $stmt = $db->prepare($sql);
     $stmt->bindValue(':Nama_Produk', $search_query, PDO::PARAM_STR);
 
-    if (!empty($_GET['Kategori'])) {
-        $stmt->bindValue(':Kategori', $_GET['Kategori'], PDO::PARAM_INT);
+    if (!empty($_GET['Liga'])) {
+        $stmt->bindValue(':Liga', $_GET['Liga'], PDO::PARAM_INT);
     }
 
     $stmt->execute();
     $products = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Ambil daftar kategori dari tabel Kategori
     $kategori_stmt = $db->query("SELECT ID, Kategori FROM Kategori");
     $kategori_list = $kategori_stmt->fetchAll(PDO::FETCH_ASSOC);
 } catch (PDOException $e) {
@@ -52,7 +51,7 @@ try {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Home</title>
-    <link rel="icon" type="image/png" href="gambar/jerseyfy_logo.png" />
+    <link rel="icon" type="image/png" href="gambar/jerseyonly_logo.png" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="home.css" />
 </head>
@@ -62,6 +61,18 @@ try {
         <img class="LogoNavbar" src="gambar/jerseyfy_logo.png" alt="Logo" />
         <ul>
             <li class="Home">Home</li>
+            <li class="LigaClub">
+                Liga Club
+                <ul class="dropdown_liga">
+                    <?php foreach ($liga_list as $liga): ?>
+                        <li>
+                            <a href="?Liga=<?php echo urlencode($liga['ID']); ?>">
+                                <?php echo htmlspecialchars($liga['Nama_Liga']); ?>
+                            </a>
+                        </li>
+                    <?php endforeach; ?>
+                </ul>
+            </li>
         </ul>
         <div class="content_navbar">
             <div class="searchbar">
@@ -84,7 +95,8 @@ try {
             <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
             <a class="LogoutButton" href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
             <?php
-            echo "<h1>Hi, " . htmlspecialchars($_SESSION['username']) . "</h1>"; ?>
+            echo "<h1 class='username_welcome'>Hi, " . htmlspecialchars($_SESSION['username']) . "</h1>";
+            ?>
         </div>
     </div>
 

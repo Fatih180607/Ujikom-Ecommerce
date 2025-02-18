@@ -1,6 +1,6 @@
 <?php
 session_start();
-header('Content-Type: application/json'); // Tambahkan ini agar browser tahu ini JSON
+header('Content-Type: application/json');
 
 $db = new PDO('sqlite:db/db.sqlite3');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);

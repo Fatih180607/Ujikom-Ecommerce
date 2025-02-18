@@ -40,7 +40,7 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Produk</title>
-    <link rel="icon" type="image/png" href="gambar/removebg.png" />
+    <link rel="icon" type="gambar" href="gambar/jerseyonly_logo.png">
     <link rel="stylesheet" href="detailproduct.css">
 </head>
 

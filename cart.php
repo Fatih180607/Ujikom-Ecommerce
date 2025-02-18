@@ -29,7 +29,7 @@ $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Keranjang</title>
-    <link rel="icon" type="image/png" href="gambar/cart_icon.png"/>
+    <link rel="icon" type="gambar" href="gambar/jerseyonly_logo.png">
     <link rel="stylesheet" href="cart.css">
 </head>
 <body>

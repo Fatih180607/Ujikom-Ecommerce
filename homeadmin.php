@@ -34,13 +34,14 @@ try {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Admin</title>
+    <link rel="icon" type="gambar" href="gambar/jerseyonly_logo.png.png">
     <link rel="stylesheet" href="homeadmin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
 <body>
     <div class="sidebar">
         <div class="logo">
-            <img src="gambar/logoitem.png" alt="Logo">
+            <img src="gambar/jerseyfy_logo.png" alt="Logo">
         </div>
         <ul>
             <li><a href="homeadmin.php"><i class="fas fa-home"></i> Dashboard</a></li>
