@@ -2,6 +2,8 @@
 session_start();
 header('Content-Type: application/json');
 
+require_once 'db/midtrans-php-master/Midtrans.php';
+
 $db = new PDO('sqlite:db/db.sqlite3');
 $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
@@ -10,14 +12,24 @@ if (!isset($_SESSION['username'])) {
     exit();
 }
 
-require_once 'db/midtrans-php-master/Midtrans.php';
-
 \Midtrans\Config::$serverKey = 'SB-Mid-server-sDRcHQQ37yB-CDwwMCl6EdmK';
 \Midtrans\Config::$isProduction = false;
 \Midtrans\Config::$isSanitized = true;
 \Midtrans\Config::$is3ds = true;
 
+// Ambil data dari POST
+$data = json_decode(file_get_contents("php://input"), true);
+if (!isset($data['nama'], $data['telp'], $data['alamat'], $data['kode_pos'])) {
+    echo json_encode(["status" => "error", "message" => "Data pembeli tidak lengkap!"]);
+    exit();
+}
+
 $username = $_SESSION['username'];
+$nama = $data['nama'];
+$telp = $data['telp'];
+$alamat = $data['alamat'];
+$kode_pos = $data['kode_pos'];
+
 $sql = "SELECT Cart.ID, Produk.Nama_Produk, Cart.Size, Cart.Quantity, SizeProduct.Harga
         FROM Cart
         JOIN Produk ON Cart.ID_Product = Produk.ID
@@ -51,7 +63,10 @@ $transaction_details = [
 ];
 
 $customer_details = [
-    "username" => $username
+    "first_name" => $nama,
+    "phone" => $telp,
+    "address" => $alamat,
+    "postal_code" => $kode_pos
 ];
 
 $transaction = [

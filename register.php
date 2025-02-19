@@ -86,7 +86,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <input class="ButtonRegist" type="submit" value="Sign Up" />
       </form>
       <p class="Loginh2">
-        Already have an account? <a href="index.php">Login here</a>
+        Sudah Punya Akun? <a href="index.php">Login disini</a>
       </p>
     </div>
 </div>

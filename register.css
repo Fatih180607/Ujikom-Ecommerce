@@ -57,6 +57,17 @@ body {
     color: white;
     font-family: 'Poppins', sans-serif;
     width: 100%;
+    cursor: pointer;
+  }
+
+  .ButtonRegist:hover{
+    border: 1px solid black;
+    margin-top: 2%;
+    background-color: white;
+    color: black;
+    font-family: 'Poppins', sans-serif;
+    width: 100%;
+    cursor: pointer;
   }
   
   input{

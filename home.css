@@ -1,8 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
 body {
   margin: 0;
   padding: 0;
   min-height: 100vh;
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
 }
 
 .Navbar {
@@ -14,9 +15,8 @@ body {
   padding: 10px 20px;
 }
 
-.kiri {
-  margin-left: auto;
-  display: flex;
+.Navbar a {
+  height: fit-content;
 }
 
 .LogoNavbar {
@@ -34,72 +34,16 @@ ul {
   flex-direction: row;
 }
 
-.Home {
-  border-bottom: 3px solid gray;
-}
-
 li {
   font-size: 18px;
   color: white;
 }
 
-li a {
-  color: white;
-  text-decoration: none;
-}
-
-li a:hover {
-  color: white;
-  background-color: #555;
-  padding: 10px;
-}
-
-.LigaClub {
-  position: relative;
-  color: white;
-  cursor: pointer;
-  padding: 10px;
-}
-
-.LigaClub:hover {
-  background-color: #555;
-}
-
-.dropdown_liga {
-  display: none;
-  position: absolute;
-  background: white;
-  top: 100%;
-  left: 0;
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  width: 200px;
-  border: 1px solid black;
-  z-index: 1000;
-}
-
-.dropdown_liga li {
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}
-
-.dropdown_liga li:last-child {
-  border-bottom: none;
-}
-
-.dropdown_liga li a {
-  text-decoration: none;
-  color: black;
-  display: block;
-}
-
-.dropdown_liga li a:hover {
-  background: #ddd;
-}
-
-.LigaClub:hover .dropdown_liga {
-  display: block;
+.content_navbar {
+  display: flex;
+  margin-left: auto;
+  margin-right: 2%;
+  gap: 20px;
 }
 
 .searchbar {
@@ -115,13 +59,14 @@ li a:hover {
   border-radius: 5px;
   outline: none;
   background-color: #f9f9f9;
+  font-family: "Poppins", sans-serif;
 }
 
 .searchbar input[type="search"]::placeholder {
   color: #999;
 }
 
-.dropdown_kategori {
+.searchbar select {
   padding: 8px 12px;
   border: 2px solid black;
   border-radius: 5px;
@@ -129,24 +74,41 @@ li a:hover {
   color: black;
   outline: none;
   cursor: pointer;
+  font-family: "Poppins", sans-serif;
 }
 
-.dropdown_kategori option {
+.searchbar select option {
   color: black;
 }
 
-.LogoutButton {
-  color: white;
+.searchbar button {
+  background: white;
+  border: 2px solid black;
+  padding: 8px 12px;
+  border-radius: 5px;
+  cursor: pointer;
+  color: black;
 }
 
-.content_navbar {
-  display: flex;
-  margin-left: auto;
-  margin-right: 2%;
+.searchbar button i {
+  color: black;
+}
+
+.fa-cart-shopping,
+.LogoutButton i {
+  color: white;
+  font-size: 20px;
+}
+
+.logoutButton a {
+  margin-bottom: 0;
+  max-height: fit-content;
+  max-width: fit-content;
 }
 
 .username_welcome {
   color: white;
+  margin: 0;
 }
 
 .product-container {
@@ -154,6 +116,7 @@ li a:hover {
   grid-template-columns: repeat(auto-fit, 40ch);
   gap: 15px;
   padding: 20px;
+  min-height: 400px;
 }
 
 .product-card {
@@ -189,12 +152,6 @@ li a:hover {
   margin: 10px 0;
 }
 
-.product-card p {
-  color: #666;
-  font-size: 14px;
-  margin: 5px 0;
-}
-
 .product-card p:last-of-type {
   font-weight: bold;
   color: #000;
@@ -212,10 +169,145 @@ h1 {
   color: inherit;
 }
 
-.fa-cart-shopping {
-  color: white;
+.button-container {
+  margin-bottom: 0;
+  color: black;
+  height: fit-content;
+  display: flex;
+  gap: 15px;
+  flex-direction: row
 }
 
-.username_welcome {
+.Tag_Kategori_Card{
   color: white;
+  background-color: gray;
+  padding: 5px 10px;
+  border-radius: 50px;
+  display: inline-block;
+  font-family: "Poppins", sans-serif;
+}
+
+#kategori{
+  font-family: "Poppins", sans-serif;
+}
+
+#liga{
+  font-family: "Poppins", sans-serif;
+}
+
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  margin-top: 600px;
+}
+
+
+.hero-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* Efek gelap transparan */
+}
+
+.hero-text {
+  position: absolute;
+  color: white;
+  font-size: 24px;
+  font-weight: bold;
+  z-index: 2;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.profile-icon {
+  font-size: 24px;
+  color: white;
+  transition: 0.3s;
+}
+
+.profile-icon:hover {
+  color: #f1c40f;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  min-width: 160px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  z-index: 100;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.profile-icon {
+  font-size: 24px;
+  color: white;
+  transition: 0.3s;
+}
+
+.profile-icon:hover {
+  color: #f1c40f;
+}
+
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  z-index: 100;
+}
+
+.profile-dropdown .active {
+  display: block;
+}
+
+.logout-button {
+  display: block;
+  padding: 5px;
+  background-color: black;
+  color: white;
+  text-align: center;
+  border-radius: 3px;
+  text-decoration: none;
+}
+
+.logout-button:hover {
+  background-color: gray;
 }

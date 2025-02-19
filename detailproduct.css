@@ -1,133 +1,191 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 body {
-    background-color: white;
-    font-family: 'Arial', sans-serif;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  font-family: "Poppins", sans-serif;
+  background-color: #f5f5f5;
 }
 
+.Navbar {
+  position: relative;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120px;
+  background: black;
+  display: flex;
+  align-items: center;
+  padding: 10px 20px;
+  z-index: 1000;
+}
+
+.Navbar a {
+  height: fit-content;
+}
+
+.LogoNavbar {
+  width: 150px;
+  margin-bottom: 0px;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  gap: 1rem;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+}
+
+li {
+  font-size: 18px;
+  color: white;
+}
+
+.content_navbar {
+  display: flex;
+  margin-left: auto;
+  margin-right: 2%;
+  gap: 20px;
+}
+
+.fa-cart-shopping,
+.profile-icon {
+  color: white;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+/* DROPDOWN PROFILE */
+.profile-dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.profile-icon:hover {
+  color: #f1c40f;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  right: 0;
+  background-color: white;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  padding: 10px;
+  border-radius: 5px;
+  text-align: left;
+  z-index: 100;
+}
+
+.profile-dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* CONTAINER PRODUK */
 .product-container {
-    display: flex;
-    align-items: flex-start;
-    gap: 20px;
-    max-width: 800px;
-    margin: 40px auto;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  max-width: 900px;
+  margin: 20px auto;
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
 }
 
-.product-details {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 400px;
-}
-
+/* GAMBAR PRODUK */
 .product-image {
-    width: 300px;
-    height: auto;
-    border-radius: 10px;
-    object-fit: cover;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  max-width: 300px;
+  border-radius: 8px;
+}
+
+/* DETAIL PRODUK */
+.product-details {
+  max-width: 500px;
+  margin-left: 20px;
 }
 
 .detailnamaproduk {
-    font-size: 32px;
-    color: #333;
-    font-weight: bold;
-    margin-bottom: 10px;
+  font-size: 24px;
+  font-weight: bold;
 }
 
 .detaildeskripsiproduk {
-    font-size: 18px;
-    color: #666;
-    margin-bottom: 20px;
-    line-height: 1.5;
+  margin-top: 10px;
+  font-size: 16px;
+  color: #555;
 }
 
 .detailhargaproduk {
-    font-size: 24px;
-    color: #ff6600;
-    font-weight: bold;
-    margin-bottom: 20px;
+  margin-top: 15px;
+  font-size: 18px;
+  font-weight: bold;
 }
 
-form {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
+/* PILIHAN UKURAN */
+select {
+  margin-top: 10px;
+  padding: 5px;
+  font-size: 16px;
 }
 
-form input[type="number"] {
-    width: 60px;
-    padding: 8px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-right: 10px;
-    font-size: 16px;
+/* INPUT JUMLAH */
+input[type="number"] {
+  margin-top: 10px;
+  padding: 5px;
+  width: 60px;
 }
 
-form button {
-    background-color: #ff6600;
-    color: white;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: bold;
-    transition: background-color 0.3s, transform 0.2s;
+/* BUTTON ADD TO CART */
+button {
+  display: block;
+  margin-top: 15px;
+  padding: 10px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  font-size: 16px;
+  cursor: pointer;
+  border-radius: 5px;
 }
 
-form button:hover {
-    background-color: #e65c00;
-    transform: translateY(-2px);
+button:hover {
+  background-color: #218838;
 }
 
-form button:active {
-    background-color: #cc5200;
-    transform: translateY(1px);
-}
-
+/* TOMBOL KEMBALI */
 .back-button {
-    display: inline-block;
-    background-color: #ddd;
-    color: #333;
-    padding: 10px 15px;
-    border-radius: 5px;
-    text-decoration: none;
-    font-size: 14px;
-    transition: background-color 0.3s, color 0.3s;
+  display: inline-block;
+  margin-top: 15px;
+  padding: 10px 15px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
 .back-button:hover {
-    background-color: #bbb;
-    color: white;
+  background-color: #0056b3;
 }
 
-select#size {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 5px;
-    background-color: white;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    margin-bottom: 15px;
-}
+/* RESPONSIF */
+@media (max-width: 768px) {
+  .product-container {
+    flex-direction: column;
+    text-align: center;
+  }
 
-select#size:hover {
-    border-color: #ff6600;
-}
+  .product-image {
+    max-width: 100%;
+  }
 
-select#size:focus {
-    border-color: #e65c00;
-    outline: none;
-    box-shadow: 0 0 5px rgba(255, 102, 0, 0.5);
-}
-
-select#size option {
-    font-size: 16px;
-    padding: 10px;
-    background-color: white;
+  .product-details {
+    margin-left: 0;
+  }
 }

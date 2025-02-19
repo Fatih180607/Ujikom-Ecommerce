@@ -76,6 +76,28 @@ $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
                 </tbody>
             </table>
 
+            <div id="checkout-popup" class="popup">
+    <div class="popup-content">
+        <h2>Isi Detail Pemesanan</h2>
+        <form id="checkout-form">
+            <label for="nama">Nama Lengkap</label>
+            <input type="text" id="nama" name="nama" required>
+
+            <label for="telp">No. Telp</label>
+            <input type="text" id="telp" name="telp" required>
+
+            <label for="alamat">Alamat</label>
+            <textarea id="alamat" name="alamat" required></textarea>
+
+            <label for="kode_pos">Kode Pos</label>
+            <input type="text" id="kode_pos" name="kode_pos" required>
+
+            <button type="submit">Lanjut ke Pembayaran</button>
+            <button type="button" onclick="closePopup()">Batal</button>
+        </form>
+    </div>
+</div>
+
             <div class="cart-summary">
                 <h2>Total Belanja: Rp <?= number_format($total_cart, 0, ',', '.') ?></h2>
                 <a href="checkout.php" id="checkout-button" class="checkout-btn">Checkout</a>
@@ -87,44 +109,53 @@ $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-34RL4XHkHmRnFzEj"></script>
 <script>
-document.getElementById("checkout-button").addEventListener("click", async function(event) {
-    event.preventDefault(); 
+document.getElementById("checkout-button").addEventListener("click", function(event) {
+    event.preventDefault();
+    document.getElementById("checkout-popup").style.display = "flex";
+});
+
+function closePopup() {
+    document.getElementById("checkout-popup").style.display = "none";
+}
+
+document.getElementById("checkout-form").addEventListener("submit", async function(event) {
+    event.preventDefault();
+
+    const formData = new FormData(this);
+    const jsonData = Object.fromEntries(formData.entries());
 
     try {
         const response = await fetch("checkout.php", {
             method: "POST",
-            headers: { "Content-Type": "application/json" }
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(jsonData)
         });
 
-        if (!response.ok) {
-            throw new Error(`Response status: ${response.status}`);
-        }
-
-        const json = await response.json();
-        if (json.snapToken) {
-            window.snap.pay(json.snapToken, {
-                onSuccess: function(result) {
+        const result = await response.json();
+        if (result.snapToken) {
+            closePopup();
+            window.snap.pay(result.snapToken, {
+                onSuccess: function() {
                     alert("Pembayaran sukses!");
                     window.location.href = "home.php";
                 },
-                onPending: function(result) {
-                    alert("Pembayaran tertunda. Silakan cek kembali nanti.");
+                onPending: function() {
+                    alert("Pembayaran tertunda.");
                 },
-                onError: function(result) {
-                    alert("Pembayaran gagal. Silakan coba lagi.");
+                onError: function() {
+                    alert("Pembayaran gagal.");
                 },
                 onClose: function() {
                     alert("Anda menutup pembayaran sebelum selesai.");
                 }
             });
         } else {
-            alert("Gagal mendapatkan token pembayaran.");
+            alert("Gagal mendapatkan token pembayaran!");
         }
     } catch (error) {
-        console.error(error.message);
-        alert("Terjadi kesalahan saat memproses checkout.");
-    }
-});
+        console.error(error);
+        alert("Terjadi kesalahan!");
+    }});
 </script>
 
 

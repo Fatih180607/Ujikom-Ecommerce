@@ -11,39 +11,47 @@ if (isset($_SESSION['username'])) {
         exit;
     } else {
         echo "Role tidak valid.";
+        exit();
     }
-    exit();
 }
 
+$errorMessage = ""; // Pastikan variabel ini dideklarasikan sebelum digunakan
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    if (!empty($_POST['username']) && !empty($_POST['password'])) {
+        $username = $_POST['username'];
+        $password = $_POST['password'];
 
-    $sql = "SELECT * FROM Data_User WHERE Username = :username";
-    $stmt = $myPDO->prepare($sql);
-    $stmt->bindParam(':username', $username, PDO::PARAM_STR);
-    $stmt->execute();
+        $sql = "SELECT * FROM Data_User WHERE Username = :username";
+        $stmt = $myPDO->prepare($sql);
+        $stmt->bindParam(':username', $username, PDO::PARAM_STR);
+        $stmt->execute();
 
-    $row = $stmt->fetch(PDO::FETCH_ASSOC);
+        $row = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    if ($row && password_verify($password, $row["Password"])) {
-        $_SESSION['username'] = $row['Username'];
-        $_SESSION['role'] = $row['Role'];
+        if ($row && password_verify($password, $row["Password"])) {
+            $_SESSION['username'] = $row['Username'];
+            $_SESSION['role'] = $row['Role'];
+            $_SESSION['email'] = $row['Email']; // Tambahkan ini agar email juga tersimpan
 
-        if ($row["Role"] === "Admin") {
-            header("Location: homeadmin.php");
-            exit;
-        } else if ($row["Role"] === "User") {
-            header("Location: home.php");
-            exit;
+            if ($row["Role"] === "Admin") {
+                header("Location: homeadmin.php");
+                exit;
+            } else if ($row["Role"] === "User") {
+                header("Location: home.php");
+                exit;
+            } else {
+                echo "Role tidak valid.";
+            }
         } else {
-            echo "Role tidak valid.";
+            $errorMessage = "Sorry, your username and password are incorrect, please try again"; 
         }
     } else {
-        $errorMessage = "Sorry, your username and password are incorrect, please try again"; 
+        $errorMessage = "Please fill in both fields.";
     }
 }
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -82,10 +90,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br /><br />
                 <input class="ButtonLogin" type="submit" value="Login"/>
             </form>
+            <a href="home.php"><input class="ButtonGuest" type="submit" value="Masuk sebagai guest"></a>
             <?php if (!empty($errorMessage)) : ?>
                 <p class="error-message"><?php echo $errorMessage; ?></p>
             <?php endif; ?>
-            <p class="registeraccount">Don't have an account yet? <a href="register.php">Register here</a></p>
+            <p class="registeraccount">Belum memiliki akun?<a href="register.php"> Daftar di sini</a></p>
         </div>
     </div>
     

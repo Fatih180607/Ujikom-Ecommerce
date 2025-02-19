@@ -41,10 +41,27 @@ try {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Detail Produk</title>
     <link rel="icon" type="gambar" href="gambar/jerseyonly_logo.png">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <link rel="stylesheet" href="detailproduct.css">
 </head>
 
 <body>
+<div class="Navbar">
+    <a href="home.php">
+        <img class="LogoNavbar" src="gambar/jerseyfy_logo.png" alt="Logo" />
+    </a>
+    <div class="content_navbar">
+        <a href="#aboutus" class="nav-link" id="about-link">About Us</a>
+
+        <div class="button-container">
+            <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
+        </div>
+
+        <div class="profile-dropdown">
+            <i class="fa-solid fa-user profile-icon"></i>
+        </div>
+    </div>
+</div>
     <div class="product-container">
         <img class="product-image" src="<?= htmlspecialchars($product['Gambar']) ?>" alt="<?= htmlspecialchars($product['Nama_Produk']) ?>">
 
