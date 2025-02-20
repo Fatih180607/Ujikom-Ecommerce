@@ -51,56 +51,61 @@ $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
                     </tr>
                 </thead>
                 <tbody>
-                    <?php
-                    $total_cart = 0;
-                    foreach ($cart_items as $item):
+                    <?php $total_cart = 0; ?>
+                    <?php foreach ($cart_items as $item): 
                         $total_price = $item['Harga'] * $item['Quantity'];
                         $total_cart += $total_price;
                     ?>
-                    <tr>
-                        <td>
-                            <div class="product-info">
-                                <img src="<?= htmlspecialchars($item['Gambar']) ?>" alt="<?= htmlspecialchars($item['Nama_Produk']) ?>">
-                                <span><?= htmlspecialchars($item['Nama_Produk']) ?></span>
-                            </div>
-                        </td>
-                        <td><?= htmlspecialchars($item['Size']) ?></td>
-                        <td>Rp <?= number_format($item['Harga'], 0, ',', '.') ?></td>
-                        <td><?= htmlspecialchars($item['Quantity']) ?></td>
-                        <td>Rp <?= number_format($total_price, 0, ',', '.') ?></td>
-                        <td>
-                            <a href="hapusproductcart.php?id=<?= $item['ID'] ?>" class="remove-btn">Hapus</a>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>
+                                <div class="product-info">
+                                    <img src="<?= htmlspecialchars($item['Gambar']) ?>" alt="<?= htmlspecialchars($item['Nama_Produk']) ?>">
+                                    <span><?= htmlspecialchars($item['Nama_Produk']) ?></span>
+                                </div>
+                            </td>
+                            <td><?= htmlspecialchars($item['Size']) ?></td>
+                            <td>Rp <?= number_format($item['Harga'], 0, ',', '.') ?></td>
+                            <td>
+                                <form action="update_cart.php" method="POST" class="updatejumlah">
+                                    <input type="hidden" name="cart_id" value="<?= $item['ID'] ?>">
+                                    <input type="number" name="quantity" value="<?= $item['Quantity'] ?>" min="1">
+                                    <button class="buttonupdate" type="submit">Update</button>
+                                </form>
+                            </td>
+                            <td>Rp <?= number_format($total_price, 0, ',', '.') ?></td>
+                            <td>
+                                <a href="hapusproductcart.php?id=<?= $item['ID'] ?>" class="remove-btn">Hapus</a>
+                            </td>
+                        </tr>
                     <?php endforeach; ?>
                 </tbody>
             </table>
 
             <div id="checkout-popup" class="popup">
-    <div class="popup-content">
-        <h2>Isi Detail Pemesanan</h2>
-        <form id="checkout-form">
-            <label for="nama">Nama Lengkap</label>
-            <input type="text" id="nama" name="nama" required>
+                <div class="popup-content">
+                    <h2>Isi Detail Pemesanan</h2>
+                    <form id="checkout-form">
+                        <label for="nama">Nama Lengkap</label>
+                        <input type="text" id="nama" name="nama" required>
 
-            <label for="telp">No. Telp</label>
-            <input type="text" id="telp" name="telp" required>
+                        <label for="telp">No. Telp</label>
+                        <input type="text" id="telp" name="telp" required>
 
-            <label for="alamat">Alamat</label>
-            <textarea id="alamat" name="alamat" required></textarea>
+                        <label for="alamat">Alamat</label>
+                        <textarea id="alamat" name="alamat" required></textarea>
 
-            <label for="kode_pos">Kode Pos</label>
-            <input type="text" id="kode_pos" name="kode_pos" required>
+                        <label for="kode_pos">Kode Pos</label>
+                        <input type="text" id="kode_pos" name="kode_pos" required>
 
-            <button type="submit">Lanjut ke Pembayaran</button>
-            <button type="button" onclick="closePopup()">Batal</button>
-        </form>
-    </div>
-</div>
+                        <button type="submit">Lanjut ke Pembayaran</button>
+                        <button type="button" onclick="closePopup()">Batal</button>
+                    </form>
+                </div>
+            </div>
 
             <div class="cart-summary">
-                <h2>Total Belanja: Rp <?= number_format($total_cart, 0, ',', '.') ?></h2>
-                <a href="checkout.php" id="checkout-button" class="checkout-btn">Checkout</a>
+                <h2>Total: Rp <?= number_format($total_cart, 0, ',', '.') ?></h2>
+                <a href="#" id="checkout-button" class="checkout-btn">Checkout</a>
             </div>
         <?php endif; ?>
 
@@ -108,56 +113,56 @@ $cart_items = $stmt->fetchAll(PDO::FETCH_ASSOC);
     </div>
 
     <script src="https://app.sandbox.midtrans.com/snap/snap.js" data-client-key="SB-Mid-client-34RL4XHkHmRnFzEj"></script>
-<script>
-document.getElementById("checkout-button").addEventListener("click", function(event) {
-    event.preventDefault();
-    document.getElementById("checkout-popup").style.display = "flex";
-});
-
-function closePopup() {
-    document.getElementById("checkout-popup").style.display = "none";
-}
-
-document.getElementById("checkout-form").addEventListener("submit", async function(event) {
-    event.preventDefault();
-
-    const formData = new FormData(this);
-    const jsonData = Object.fromEntries(formData.entries());
-
-    try {
-        const response = await fetch("checkout.php", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(jsonData)
+    <script>
+        document.getElementById("checkout-button").addEventListener("click", function(event) {
+            event.preventDefault();
+            document.getElementById("checkout-popup").style.display = "flex";
         });
 
-        const result = await response.json();
-        if (result.snapToken) {
-            closePopup();
-            window.snap.pay(result.snapToken, {
-                onSuccess: function() {
-                    alert("Pembayaran sukses!");
-                    window.location.href = "home.php";
-                },
-                onPending: function() {
-                    alert("Pembayaran tertunda.");
-                },
-                onError: function() {
-                    alert("Pembayaran gagal.");
-                },
-                onClose: function() {
-                    alert("Anda menutup pembayaran sebelum selesai.");
+        function closePopup() {
+            document.getElementById("checkout-popup").style.display = "none";
+        }
+
+        document.getElementById("checkout-form").addEventListener("submit", async function(event) {
+            event.preventDefault();
+            const formData = new FormData(this);
+            const jsonData = Object.fromEntries(formData.entries());
+
+            const response = await fetch("checkout.php", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(jsonData)
+            });
+
+            const result = await response.json();
+            if (result.snapToken) {
+                closePopup();
+                window.snap.pay(result.snapToken, {
+    onSuccess: function(result) {
+        alert("Pembayaran berhasil!");
+        fetch("clear_cart.php") // Hapus cart setelah pembayaran berhasil
+            .then(response => response.json())
+            .then(data => {
+                if (data.status === "success") {
+                    alert("Keranjang berhasil dikosongkan!");
+                    window.location.href = "home.php"; // Redirect ke halaman utama
+                } else {
+                    alert("Gagal mengosongkan keranjang!");
                 }
             });
-        } else {
-            alert("Gagal mendapatkan token pembayaran!");
-        }
-    } catch (error) {
-        console.error(error);
-        alert("Terjadi kesalahan!");
-    }});
-</script>
+    },
+    onPending: function(result) {
+        alert("Pembayaran tertunda. Selesaikan pembayaran segera.");
+    },
+    onError: function(result) {
+        alert("Pembayaran gagal!");
+    }
+});
 
-
+            } else {
+                alert("Gagal mendapatkan token pembayaran!");
+            }
+        });
+    </script>
 </body>
 </html>

@@ -6,7 +6,13 @@ try {
     if (isset($_GET['id'])) {
         $produkID = intval($_GET['id']);
 
-        $stmt = $db->prepare("SELECT Nama_Produk, Deskripsi, Gambar FROM Produk WHERE ID = :id");
+        // Query untuk mengambil data produk termasuk kategori
+        $stmt = $db->prepare("SELECT p.Nama_Produk, p.Deskripsi, p.Gambar, k.Kategori AS Nama_Kategori
+FROM Produk p
+JOIN Kategori k ON p.Kategori = k.ID
+WHERE p.ID = :id");
+
+
         $stmt->bindParam(':id', $produkID, PDO::PARAM_INT);
         $stmt->execute();
 
@@ -17,6 +23,10 @@ try {
             exit;
         }
 
+        // Ambil kategori produk
+        $kategori = $product['Nama_Kategori'] ?? 'Tidak Ada';
+
+        // Ambil ukuran dan harga produk dari SizeProduct
         $stmtSize = $db->prepare("SELECT Size_Produk, Harga FROM SizeProduct WHERE ID_Product = :id ORDER BY Harga ASC");
         $stmtSize->bindParam(':id', $produkID, PDO::PARAM_INT);
         $stmtSize->execute();
@@ -46,22 +56,20 @@ try {
 </head>
 
 <body>
-<div class="Navbar">
-    <a href="home.php">
-        <img class="LogoNavbar" src="gambar/jerseyfy_logo.png" alt="Logo" />
-    </a>
-    <div class="content_navbar">
-        <a href="#aboutus" class="nav-link" id="about-link">About Us</a>
-
-        <div class="button-container">
-            <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
+    <div class="Navbar">
+        <div class="kiri">
+        <a href="home.php">
+            <img class="LogoNavbar" src="gambar/jerseyfy_logo.png" alt="Logo" />
+        </a>
+        <a href="home.php" class="nav-link" id="about-link">Home</a>
         </div>
-
-        <div class="profile-dropdown">
-            <i class="fa-solid fa-user profile-icon"></i>
+        <div class="content_navbar">
+            <div class="button-container">
+                <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
+            </div>
         </div>
     </div>
-</div>
+
     <div class="product-container">
         <img class="product-image" src="<?= htmlspecialchars($product['Gambar']) ?>" alt="<?= htmlspecialchars($product['Nama_Produk']) ?>">
 
@@ -69,13 +77,17 @@ try {
             <h1 class="detailnamaproduk"><?= htmlspecialchars($product['Nama_Produk']) ?></h1>
             <p class="detaildeskripsiproduk"><?= htmlspecialchars($product['Deskripsi']) ?></p>
 
-            <p class="detailhargaproduk" id="harga-produk">
+            <p class="detailhargaproduk">
                 <?php if ($hargaTermurah !== null): ?>
                     Harga: Rp <span id="harga"><?= number_format($hargaTermurah, 0, ',', '.') ?></span>
                 <?php else: ?>
                     Harga: Tidak tersedia
                 <?php endif; ?>
             </p>
+
+            <!-- Tampilkan Kategori -->
+            <p class="detailkategori">Kategori: <?= htmlspecialchars($product['Nama_Kategori'] ?? 'Tidak Ada') ?></p>
+
             <?php if (!empty($sizes)): ?>
                 <label for="size">Pilih Ukuran:</label>
                 <select id="size" name="size" onchange="updatePrice()">
@@ -94,10 +106,11 @@ try {
                 <label for="jumlah">Jumlah:</label>
                 <input type="number" name="jumlah" value="1" min="1">
 
-                <button type="submit">Add to Cart</button>
+                <div class="button-container">
+                    <button type="submit" class="button-add">Tambah ke Keranjang</button>
+                    <a href="home.php" class="back-button">Lanjut Belanja</a>
+                </div>
             </form>
-
-            <a href="home.php" class="back-button">Kembali ke Home</a>
         </div>
     </div>
 
@@ -111,7 +124,6 @@ try {
             selectedSize.value = sizeSelect.options[sizeSelect.selectedIndex].text;
         }
     </script>
-
 </body>
 
 </html>

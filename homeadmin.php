@@ -46,7 +46,6 @@ try {
         <ul>
             <li><a href="homeadmin.php"><i class="fas fa-home"></i> Dashboard</a></li>
             <li><a href="addproductadmin.php"><i class="fas fa-plus"></i> Tambah Produk</a></li>
-            <li><a href="kategori_produk.php"><i class="fa-solid fa-table-list"></i> Kategori</a></li>
             <li><a href="logout.php" class="logout"><i class="fas fa-sign-out-alt"></i> Logout</a></li>
         </ul>
     </div>

@@ -8,94 +8,89 @@ body {
 
 .Navbar {
   position: relative;
-  background: black;
+  top: 0;
+  left: 0;
   height: 120px;
+  background: black;
   display: flex;
   align-items: center;
   padding: 10px 20px;
+  z-index: 1000;
 }
 
-.Navbar a {
-  height: fit-content;
+.nav-link {
+  color: white; /* Warna teks putih */
+  text-decoration: none; /* Menghilangkan garis bawah */
+  font-size: 18px; /* Ukuran teks */
+  font-weight: bold; /* Membuat teks lebih tebal */
 }
 
+.nav-link:hover {
+  text-decoration: underline; /* Efek hover opsional */
+}
 .LogoNavbar {
   width: 150px;
   margin-bottom: 0px;
 }
 
-ul {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  gap: 1rem;
+.about-link-container {
+  margin-left: 20px; /* Supaya "About Us" tidak menempel ke logo */
+}
+
+.navbar-right {
+  display: flex;
   align-items: center;
-  display: flex;
-  flex-direction: row;
-}
-
-li {
-  font-size: 18px;
-  color: white;
-}
-
-.content_navbar {
-  display: flex;
-  margin-left: auto;
-  margin-right: 2%;
-  gap: 20px;
+  gap: 15px; /* Beri jarak antar elemen */
+  margin-left: auto; /* Dorong semua elemen ke kanan */
 }
 
 .searchbar {
   display: flex;
   align-items: center;
-  gap: 10px;
 }
 
-.searchbar input[type="search"] {
-  padding: 8px 12px;
-  width: 250px;
-  border: 2px solid black;
-  border-radius: 5px;
-  outline: none;
-  background-color: #f9f9f9;
-  font-family: "Poppins", sans-serif;
-}
-
-.searchbar input[type="search"]::placeholder {
-  color: #999;
-}
-
-.searchbar select {
-  padding: 8px 12px;
-  border: 2px solid black;
-  border-radius: 5px;
-  background-color: white;
-  color: black;
-  outline: none;
-  cursor: pointer;
-  font-family: "Poppins", sans-serif;
-}
-
-.searchbar select option {
-  color: black;
+.searchbar input {
+  padding: 5px;
 }
 
 .searchbar button {
-  background: white;
-  border: 2px solid black;
-  padding: 8px 12px;
-  border-radius: 5px;
-  cursor: pointer;
-  color: black;
+  background-color: #555;
+  color: white;
+  border: none;
+  padding: 5px 10px;
 }
 
-.searchbar button i {
-  color: black;
+.dropdown_kategori, .dropdown_liga {
+  padding: 5px;
 }
+
+.button-container, .profile-dropdown {
+  position: relative;
+}
+
+.profile-dropdown .profile-icon {
+  cursor: pointer;
+  font-size: 20px;
+  color: white;
+}
+
+.profile-dropdown .dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: white;
+  right: 0;
+  top: 30px;
+  padding: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.profile-dropdown:hover .dropdown-content {
+  display: block;
+}
+
 
 .fa-cart-shopping,
-.LogoutButton i {
+.logout-icon i {
   color: white;
   font-size: 20px;
 }
@@ -231,22 +226,6 @@ h1 {
   z-index: 2;
 }
 
-.profile-dropdown {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.profile-icon {
-  font-size: 24px;
-  color: white;
-  transition: 0.3s;
-}
-
-.profile-icon:hover {
-  color: #f1c40f;
-}
-
 .dropdown-content {
   display: none;
   position: absolute;
@@ -258,28 +237,6 @@ h1 {
   border-radius: 5px;
   text-align: left;
   z-index: 100;
-}
-
-.profile-dropdown {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
-}
-
-.profile-icon {
-  font-size: 24px;
-  color: white;
-  transition: 0.3s;
-}
-
-.profile-icon:hover {
-  color: #f1c40f;
-}
-
-.profile-dropdown {
-  position: relative;
-  display: inline-block;
-  cursor: pointer;
 }
 
 .dropdown-content {
@@ -294,10 +251,6 @@ h1 {
   z-index: 100;
 }
 
-.profile-dropdown .active {
-  display: block;
-}
-
 .logout-button {
   display: block;
   padding: 5px;
@@ -310,4 +263,39 @@ h1 {
 
 .logout-button:hover {
   background-color: gray;
+}
+
+.searchbar {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Jarak antara input dan tombol */
+}
+
+#searchproduk {
+  padding: 10px;
+  border: 1px solid #ccc;
+  outline: none;
+  width: 250px;
+  font-size: 14px;
+}
+
+.search-button {
+  background: #ddd;
+  border: none;
+  padding: 10px 12px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #555;
+  transition: background 0.3s, color 0.3s;
+}
+
+.search-button i {
+  font-size: 16px;
+}
+
+.search-button:hover {
+  background: #bbb;
+  color: white;
 }

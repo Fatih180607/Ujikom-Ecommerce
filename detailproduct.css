@@ -12,7 +12,6 @@ body {
   position: relative;
   top: 0;
   left: 0;
-  width: 100%;
   height: 120px;
   background: black;
   display: flex;
@@ -85,34 +84,36 @@ li {
   display: block;
 }
 
-/* CONTAINER PRODUK */
 .product-container {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-wrap: wrap;
-  max-width: 900px;
-  margin: 20px auto;
-  background: white;
-  padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
-}
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    flex-wrap: wrap;
+    max-width: 1000px;
+    margin: 30px auto;
+    background: white;
+    padding: 30px;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
 
-/* GAMBAR PRODUK */
 .product-image {
-  max-width: 300px;
-  border-radius: 8px;
-}
+    width: 400px;  /* Perbesar ukuran gambar */
+    height: auto;
+    border-radius: 8px;
+    border: 1px solid black;
+    
+  }
 
 /* DETAIL PRODUK */
 .product-details {
-  max-width: 500px;
-  margin-left: 20px;
-}
+    max-width: 500px;
+    margin-left: 30px;
+    flex: 1;
+  }
 
 .detailnamaproduk {
-  font-size: 24px;
+  font-size: 26px;
   font-weight: bold;
 }
 
@@ -123,11 +124,21 @@ li {
 }
 
 .detailhargaproduk {
-  margin-top: 15px;
-  font-size: 18px;
-  font-weight: bold;
+    margin-top: 15px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #d9534f;
 }
 
+.detailkategori {
+    font-size: 16px;
+    color: #333;
+    background: #f1c40f;
+    padding: 5px 10px;
+    border-radius: 5px;
+    display: inline-block;
+    margin-top: 10px;
+  }
 /* PILIHAN UKURAN */
 select {
   margin-top: 10px;
@@ -174,18 +185,19 @@ button:hover {
   background-color: #0056b3;
 }
 
-/* RESPONSIF */
-@media (max-width: 768px) {
-  .product-container {
-    flex-direction: column;
-    text-align: center;
-  }
-
-  .product-image {
-    max-width: 100%;
-  }
-
-  .product-details {
-    margin-left: 0;
-  }
+.kiri{
+    display: flex;
+    gap: 10px;
+    align-items: center;
 }
+
+.nav-link {
+    color: white; /* Warna teks putih */
+    text-decoration: none; /* Menghilangkan garis bawah */
+    font-size: 18px; /* Ukuran teks */
+    font-weight: bold; /* Membuat teks lebih tebal */
+  }
+
+  .nav-link:hover {
+    text-decoration: underline; /* Efek hover opsional */
+  }

@@ -51,25 +51,6 @@ body {
   cursor: pointer;
 }
 
-.ButtonGuest{
-  background-color: white;
-  border: 1px solid black;
-  width: 100%;
-  margin-top: 1%;
-  color: black;
-  font-family: 'Poppins', sans-serif;
-}
-
-.ButtonGuest:hover{
-  background-color: gray;
-  border: 1px solid white;
-  width: 100%;
-  margin-top: 1%;
-  color: white;
-  font-family: 'Poppins', sans-serif;
-  cursor: pointer;
-}
-
 .ButtonRegist{
   margin-top: 2%;
   width: 100%;

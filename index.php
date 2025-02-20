@@ -32,7 +32,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         if ($row && password_verify($password, $row["Password"])) {
             $_SESSION['username'] = $row['Username'];
             $_SESSION['role'] = $row['Role'];
-            $_SESSION['email'] = $row['Email']; // Tambahkan ini agar email juga tersimpan
+            $_SESSION['email'] = $row['Email'];
 
             if ($row["Role"] === "Admin") {
                 header("Location: homeadmin.php");
@@ -90,7 +90,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <br /><br />
                 <input class="ButtonLogin" type="submit" value="Login"/>
             </form>
-            <a href="home.php"><input class="ButtonGuest" type="submit" value="Masuk sebagai guest"></a>
             <?php if (!empty($errorMessage)) : ?>
                 <p class="error-message"><?php echo $errorMessage; ?></p>
             <?php endif; ?>

@@ -30,6 +30,7 @@ $telp = $data['telp'];
 $alamat = $data['alamat'];
 $kode_pos = $data['kode_pos'];
 
+// Ambil data keranjang belanja
 $sql = "SELECT Cart.ID, Produk.Nama_Produk, Cart.Size, Cart.Quantity, SizeProduct.Harga
         FROM Cart
         JOIN Produk ON Cart.ID_Product = Produk.ID
@@ -57,18 +58,31 @@ foreach ($cart_items as $item) {
     ];
 }
 
+// ✨ Tambahkan customer_details agar muncul di detail Midtrans ✨
+$customer_details = [
+    "first_name" => $nama,
+    "phone" => $telp,
+    "billing_address" => [
+        "first_name" => $nama,
+        "phone" => $telp,
+        "address" => $alamat,
+        "postal_code" => $kode_pos
+    ],
+    "shipping_address" => [
+        "first_name" => $nama,
+        "phone" => $telp,
+        "address" => $alamat,
+        "postal_code" => $kode_pos
+    ]
+];
+
+// Detail transaksi
 $transaction_details = [
     "order_id" => "ORDER-" . time(),
     "gross_amount" => $total_price
 ];
 
-$customer_details = [
-    "first_name" => $nama,
-    "phone" => $telp,
-    "address" => $alamat,
-    "postal_code" => $kode_pos
-];
-
+// Buat request ke Midtrans
 $transaction = [
     "transaction_details" => $transaction_details,
     "customer_details" => $customer_details,
@@ -82,3 +96,4 @@ try {
     echo json_encode(["status" => "error", "message" => $e->getMessage()]);
 }
 ?>
+    
