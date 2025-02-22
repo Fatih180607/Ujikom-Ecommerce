@@ -5,7 +5,6 @@ if (isset($_GET['ID'])) {
     $ID = $_GET['ID'];
 
     if (is_numeric($ID)) {
-        // Ambil data produk
         $sql = "SELECT * FROM Produk WHERE ID = :ID";
         $stmt = $db->prepare($sql);
         $stmt->bindValue(':ID', $ID, PDO::PARAM_INT);
@@ -17,15 +16,12 @@ if (isset($_GET['ID'])) {
             exit();
         }
 
-        // Ambil daftar kategori
         $kategori_stmt = $db->query("SELECT ID, Kategori FROM Kategori");
         $kategori_list = $kategori_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Ambil daftar liga
         $liga_stmt = $db->query("SELECT ID, Nama_Liga FROM Kategori_liga");
         $liga_list = $liga_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-        // Ambil ukuran dan harga
         $size_stmt = $db->prepare("SELECT ID, Size_Produk, Harga FROM SizeProduct WHERE ID_Product = :ID");
         $size_stmt->bindValue(':ID', $ID, PDO::PARAM_INT);
         $size_stmt->execute();
@@ -116,7 +112,6 @@ document.getElementById("add-size").addEventListener("click", function () {
     container.appendChild(div);
 });
 
-// Hapus ukuran dari form
 document.addEventListener("click", function (event) {
     if (event.target.classList.contains("remove-size")) {
         var sizeRow = event.target.parentElement;

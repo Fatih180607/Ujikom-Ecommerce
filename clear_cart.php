@@ -10,7 +10,6 @@ if (!isset($_SESSION['username'])) {
 
 $username = $_SESSION['username'];
 
-// Hapus semua barang dari cart user yang login
 $sql = "DELETE FROM Cart WHERE Username = :username";
 $stmt = $db->prepare($sql);
 $stmt->bindParam(':username', $username, PDO::PARAM_STR);

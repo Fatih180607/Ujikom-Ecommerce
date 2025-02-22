@@ -95,11 +95,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 const passwordField = document.querySelector("#password");
 
 togglePassword.addEventListener("click", function () {
-    // Toggle visibility password
     const isPasswordVisible = passwordField.type === "password";
     passwordField.type = isPasswordVisible ? "text" : "password";
 
-    // Toggle icon
     this.classList.toggle("fa-eye-slash");
 });
 

@@ -15,7 +15,7 @@ if (isset($_SESSION['username'])) {
     }
 }
 
-$errorMessage = ""; // Pastikan variabel ini dideklarasikan sebelum digunakan
+$errorMessage = "";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if (!empty($_POST['username']) && !empty($_POST['password'])) {

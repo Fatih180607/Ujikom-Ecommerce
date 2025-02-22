@@ -64,7 +64,6 @@ img#gambarPreview {
     border: 1px solid #ddd;
 }
 
-/* Style untuk bagian edit ukuran dan harga */
 h3 {
     margin-top: 20px;
 }
@@ -148,7 +147,7 @@ input[type="submit"]:hover {
 .cancel-button {
     display: inline-block;
     text-align: center;
-    width: 48%; /* Lebar lebih besar agar terlihat jelas */
+    width: 48%; 
     padding: 10px;
     background-color: #ccc;
     color: #333;

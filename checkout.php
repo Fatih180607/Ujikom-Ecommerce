@@ -17,7 +17,6 @@ if (!isset($_SESSION['username'])) {
 \Midtrans\Config::$isSanitized = true;
 \Midtrans\Config::$is3ds = true;
 
-// Ambil data dari POST
 $data = json_decode(file_get_contents("php://input"), true);
 if (!isset($data['nama'], $data['telp'], $data['alamat'], $data['kode_pos'])) {
     echo json_encode(["status" => "error", "message" => "Data pembeli tidak lengkap!"]);
@@ -30,7 +29,6 @@ $telp = $data['telp'];
 $alamat = $data['alamat'];
 $kode_pos = $data['kode_pos'];
 
-// Ambil data keranjang belanja
 $sql = "SELECT Cart.ID, Produk.Nama_Produk, Cart.Size, Cart.Quantity, SizeProduct.Harga
         FROM Cart
         JOIN Produk ON Cart.ID_Product = Produk.ID
@@ -58,7 +56,6 @@ foreach ($cart_items as $item) {
     ];
 }
 
-// ✨ Tambahkan customer_details agar muncul di detail Midtrans ✨
 $customer_details = [
     "first_name" => $nama,
     "phone" => $telp,
@@ -76,13 +73,11 @@ $customer_details = [
     ]
 ];
 
-// Detail transaksi
 $transaction_details = [
     "order_id" => "ORDER-" . time(),
     "gross_amount" => $total_price
 ];
 
-// Buat request ke Midtrans
 $transaction = [
     "transaction_details" => $transaction_details,
     "customer_details" => $customer_details,

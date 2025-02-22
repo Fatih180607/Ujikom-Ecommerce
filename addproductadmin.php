@@ -3,11 +3,9 @@ try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Ambil data kategori
     $query = $db->query("SELECT ID, Kategori FROM Kategori");
     $kategori_list = $query->fetchAll(PDO::FETCH_ASSOC);
 
-    // Ambil data kategori liga
     $query = $db->query("SELECT ID, Nama_Liga, Negara FROM Kategori_Liga");
     $kategori_liga = $query->fetchAll(PDO::FETCH_ASSOC);
 
@@ -15,7 +13,7 @@ try {
         $Nama_Produk = trim($_POST['Nama_Produk']);
         $Deskripsi = $_POST['Deskripsi'];
         $Kategori = $_POST['Kategori'];
-        $Kategori_Liga = $_POST['Kategori_liga']; // Perbaikan: Sesuai dengan name di form
+        $Kategori_Liga = $_POST['Kategori_liga'];
 
         if (empty($Nama_Produk) || empty($Deskripsi) || empty($Kategori) || empty($Kategori_Liga)) {
             throw new Exception("Semua kolom wajib diisi.");
@@ -41,7 +39,6 @@ try {
             if (move_uploaded_file($fileTmpPath, $destPath)) {
                 $gambarUrl = 'http://' . $_SERVER['HTTP_HOST'] . '/ecommerce/' . $destPath;
 
-                // Perbaikan: Hapus 'Harga' dari query INSERT karena harga ada di SizeProduct
                 $sql = "INSERT INTO Produk (Nama_Produk, Deskripsi, Gambar, Kategori, Kategori_Liga) 
                         VALUES (:Nama_Produk, :Deskripsi, :Gambar, :Kategori, :Kategori_Liga)";
                 $stmt = $db->prepare($sql);
@@ -54,7 +51,6 @@ try {
 
                 $productId = $db->lastInsertId();
 
-                // Menyimpan ukuran dan harga di tabel SizeProduct
                 if (isset($_POST['size']) && isset($_POST['size_price'])) {
                     $sizes = $_POST['size'];
                     $prices = $_POST['size_price'];

@@ -4,35 +4,28 @@ try {
     $db = new PDO('sqlite:db/db.sqlite3');
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Ambil daftar liga
     $liga_stmt = $db->query("SELECT ID, Nama_Liga FROM Kategori_liga");
     $liga_list = $liga_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Ambil daftar kategori
     $kategori_stmt = $db->query("SELECT ID, Kategori FROM Kategori");
     $kategori_list = $kategori_stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Inisialisasi parameter query
     $search_query = "%";
     $liga_query = "";
     $kategori_query = "";
 
-    // Cek apakah ada pencarian nama produk
     if (!empty($_GET['Search_Query'])) {
         $search_query = "%" . $_GET['Search_Query'] . "%";
     }
 
-    // Cek apakah ada filter liga
     if (!empty($_GET['Liga'])) {
         $liga_query = "AND Produk.Kategori_Liga = :Liga";
     }
 
-    // Cek apakah ada filter kategori
     if (!empty($_GET['Kategori'])) {
         $kategori_query = "AND Produk.Kategori = :Kategori";
     }
 
-    // Query produk
     $sql = "SELECT Produk.ID, Produk.Nama_Produk, Produk.Deskripsi, Produk.Gambar, 
         Kategori.Kategori AS Nama_Kategori,
         (SELECT MIN(Harga) FROM SizeProduct WHERE SizeProduct.ID_Product = Produk.ID) AS Harga_Termurah,
@@ -115,7 +108,6 @@ try {
     <a href="cart.php"><i class="fa-solid fa-cart-shopping"></i></a>
 </div>
 
-<!-- Ganti ikon profil dengan ikon logout -->
 <div class="logout-icon">
     <a href="logout.php"><i class="fa-solid fa-right-from-bracket"></i></a>
 </div>
@@ -156,13 +148,11 @@ try {
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
-        // Scroll ke About Us
         document.querySelector(".nav-link").addEventListener("click", function (event) {
             event.preventDefault();
             document.getElementById("aboutus").scrollIntoView({ behavior: "smooth", block: "start" });
         });
 
-        // Dropdown profil untuk logout
         const profileIcon = document.querySelector(".profile-icon");
         const dropdownContent = document.querySelector(".dropdown-content");
 

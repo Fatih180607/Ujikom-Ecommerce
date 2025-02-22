@@ -6,7 +6,6 @@ try {
     if (isset($_GET['id'])) {
         $produkID = intval($_GET['id']);
 
-        // Query untuk mengambil data produk termasuk kategori
         $stmt = $db->prepare("SELECT p.Nama_Produk, p.Deskripsi, p.Gambar, k.Kategori AS Nama_Kategori
 FROM Produk p
 JOIN Kategori k ON p.Kategori = k.ID
@@ -23,10 +22,8 @@ WHERE p.ID = :id");
             exit;
         }
 
-        // Ambil kategori produk
         $kategori = $product['Nama_Kategori'] ?? 'Tidak Ada';
 
-        // Ambil ukuran dan harga produk dari SizeProduct
         $stmtSize = $db->prepare("SELECT Size_Produk, Harga FROM SizeProduct WHERE ID_Product = :id ORDER BY Harga ASC");
         $stmtSize->bindParam(':id', $produkID, PDO::PARAM_INT);
         $stmtSize->execute();
@@ -85,7 +82,6 @@ WHERE p.ID = :id");
                 <?php endif; ?>
             </p>
 
-            <!-- Tampilkan Kategori -->
             <p class="detailkategori">Kategori: <?= htmlspecialchars($product['Nama_Kategori'] ?? 'Tidak Ada') ?></p>
 
             <?php if (!empty($sizes)): ?>

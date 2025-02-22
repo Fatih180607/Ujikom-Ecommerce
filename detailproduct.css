@@ -58,7 +58,6 @@ li {
   cursor: pointer;
 }
 
-/* DROPDOWN PROFILE */
 .profile-dropdown {
   position: relative;
   display: inline-block;
@@ -98,14 +97,13 @@ li {
   }
 
 .product-image {
-    width: 400px;  /* Perbesar ukuran gambar */
+    width: 400px;
     height: auto;
     border-radius: 8px;
     border: 1px solid black;
     
   }
 
-/* DETAIL PRODUK */
 .product-details {
     max-width: 500px;
     margin-left: 30px;
@@ -139,21 +137,21 @@ li {
     display: inline-block;
     margin-top: 10px;
   }
-/* PILIHAN UKURAN */
+
 select {
   margin-top: 10px;
   padding: 5px;
   font-size: 16px;
 }
 
-/* INPUT JUMLAH */
+
 input[type="number"] {
   margin-top: 10px;
   padding: 5px;
   width: 60px;
 }
 
-/* BUTTON ADD TO CART */
+
 button {
   display: block;
   margin-top: 15px;
@@ -170,7 +168,7 @@ button:hover {
   background-color: #218838;
 }
 
-/* TOMBOL KEMBALI */
+
 .back-button {
   display: inline-block;
   margin-top: 15px;
@@ -192,12 +190,12 @@ button:hover {
 }
 
 .nav-link {
-    color: white; /* Warna teks putih */
-    text-decoration: none; /* Menghilangkan garis bawah */
-    font-size: 18px; /* Ukuran teks */
-    font-weight: bold; /* Membuat teks lebih tebal */
+    color: white;
+    text-decoration: none; 
+    font-size: 18px; 
+    font-weight: bold; 
   }
 
   .nav-link:hover {
-    text-decoration: underline; /* Efek hover opsional */
+    text-decoration: underline;
   }

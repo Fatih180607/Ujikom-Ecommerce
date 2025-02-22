@@ -22,8 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </script>";
         exit();
     }
-
-    // Update jumlah di database
+    
     $sql = "UPDATE Cart SET Quantity = :quantity WHERE ID = :cart_id";
     $stmt = $db->prepare($sql);
     $stmt->bindParam(':quantity', $quantity, PDO::PARAM_INT);

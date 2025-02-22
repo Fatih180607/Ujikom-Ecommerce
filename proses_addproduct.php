@@ -31,7 +31,6 @@ try {
             if (move_uploaded_file($fileTmpPath, $destPath)) {
                 $gambarUrl = $destPath;
 
-                // Simpan data produk ke tabel Produk
                 $sql = "INSERT INTO Produk (Nama_Produk, Deskripsi, Gambar, Kategori) 
                         VALUES (:Nama_Produk, :Deskripsi, :Gambar, :Kategori)";
                 $stmt = $db->prepare($sql);
@@ -43,7 +42,6 @@ try {
 
                 $productId = $db->lastInsertId();
 
-                // Simpan data ukuran ke tabel SizeProduct
                 if (isset($_POST['size']) && isset($_POST['size_price'])) {
                     $sizes = $_POST['size'];
                     $prices = $_POST['size_price'];

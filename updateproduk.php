@@ -9,27 +9,23 @@ if (isset($_POST['update'])) {
     $kategori_liga = $_POST['Kategori_Liga'];
     $oldGambar = $_POST['oldGambar'];
 
-    // ** Update gambar jika ada file baru **
     if (!empty($_FILES['Gambar']['name'])) {
         $gambar = $_FILES['Gambar']['name'];
         $gambarTmp = $_FILES['Gambar']['tmp_name'];
         $gambarPath = "gambar/" . $gambar;
 
-        // Hapus gambar lama
         if (!empty($oldGambar) && file_exists("gambar/" . $oldGambar)) {
             unlink("gambar/" . $oldGambar);
         }
 
         move_uploaded_file($gambarTmp, $gambarPath);
     } else {
-        $gambar = $oldGambar; // Pakai gambar lama jika tidak diubah
+        $gambar = $oldGambar; 
     }
 
-    // ** Update Produk **
     $stmt = $db->prepare("UPDATE Produk SET Nama_Produk = ?, Deskripsi = ?, Kategori = ?, Kategori_Liga = ?, Gambar = ? WHERE ID = ?");
     $stmt->execute([$nama, $deskripsi, $kategori, $kategori_liga, $gambar, $ID]);
 
-    // Hapus ukuran jika ada
     if (!empty($_POST['delete_size'])) {
         foreach ($_POST['delete_size'] as $sizeID) {
             $stmt = $db->prepare("DELETE FROM SizeProduct WHERE ID = ?");
@@ -37,7 +33,6 @@ if (isset($_POST['update'])) {
         }
     }
 
-    // Tambah atau Update Ukuran
     if (!empty($_POST['size']) && !empty($_POST['harga'])) {
         $sizes = $_POST['size'];
         $prices = $_POST['harga'];
